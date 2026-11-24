@@ -66,7 +66,7 @@ async function readCatalog(token: string): Promise<{ catalog: Catalog; sha: stri
 async function saveCatalog(token: string, catalog: Catalog, sha: string, message: string) {
   const body = {
     message,
-    content: encodeBase64Utf8(JSON.stringify(catalog, null, 2) + "\\n"),
+    content: encodeBase64Utf8(JSON.stringify(catalog, null, 2) + "\n"),
     sha,
     branch: BRANCH,
   };
