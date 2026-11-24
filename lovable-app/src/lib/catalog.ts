@@ -193,7 +193,7 @@ export function songLabels(song: Pick<Song, "tag_ids">, categories: Category[]):
 
 /** Count title characters for display sorting; English-only titles ignore whitespace. */
 export function titleCharacterCount(title: string): number {
-  const normalized = /^[\\x00-\\x7F\\s]*$/.test(title) ? title.replace(/\\s+/g, "") : title;
+  const normalized = /^[\x00-\x7F\s]*$/.test(title) ? title.replace(/\s+/g, "") : title;
   return Array.from(normalized).length;
 }
 
