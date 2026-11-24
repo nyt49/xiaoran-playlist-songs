@@ -339,7 +339,7 @@ function Home() {
           <p className="flex items-center gap-1.5">
             <Cherry className="h-4 w-4" /> RAN's Little Radio · 只收藏，不播放
           </p>
-          <Link to="/auth" className="rounded-full px-2 py-1 transition-colors hover:text-secondary-foreground">
+          <Link to="/admin" className="rounded-full px-2 py-1 transition-colors hover:text-secondary-foreground">
             管理員登入
           </Link>
         </div>
