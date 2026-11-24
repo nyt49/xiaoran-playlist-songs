@@ -13,15 +13,7 @@ export function LabelChips({
 }) {
   const chip = size === "sm" ? "px-2 py-0.5 text-[11px]" : "px-3 py-1 text-xs";
   const empty = labels.language.length === 0 && labels.genre.length === 0;
-  if (empty) {
-    return (
-      <p className={cn("flex", align === "center" && "justify-center")}>
-        <span className={cn("rounded-full border border-dashed border-border text-muted-foreground", chip)}>
-          尚未標記
-        </span>
-      </p>
-    );
-  }
+  if (empty) return null;
   return (
     <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1.5", align === "center" && "justify-center")}>
       {labels.language.length > 0 && (
