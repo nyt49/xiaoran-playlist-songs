@@ -773,3 +773,346 @@ body {
     width: 100%;
   }
 }
+
+
+/* ===== Cherry Songbook: soft Korean-inspired finish ===== */
+:root {
+  --cherry-white: #fffbfa;
+  --cherry-cream: #fff4f1;
+  --cherry-light: #f9e4e3;
+  --cherry-soft: #efc5c8;
+  --cherry-main: #d99ba5;
+  --cherry-dark: #b97686;
+  --cherry-pink: #e8bdc4;
+  --cherry-pale: #fff0ef;
+  --cherry-accent: #a85e72;
+  --cherry-text: #59434a;
+  --cherry-text-light: #947b82;
+  --cherry-shadow: rgba(130, 79, 91, 0.08);
+  --cherry-border: rgba(193, 139, 151, 0.24);
+  --card-bg: rgba(255, 253, 252, 0.88);
+  --btn-active: #c98a98;
+}
+
+body {
+  background: linear-gradient(145deg, #fff9f7 0%, #fbeded 48%, #f6e9ed 100%);
+  color: var(--cherry-text);
+}
+
+.bubbles-container {
+  opacity: 0.34;
+}
+
+.main-wrapper {
+  max-width: 1020px;
+  padding-top: 1.4rem;
+}
+
+.site-header {
+  padding: 2.2rem 1rem 1.8rem;
+}
+
+.eyebrow {
+  color: #b58a94;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  margin-bottom: 0.65rem;
+}
+
+.site-title {
+  color: #654b54;
+  font-size: clamp(2rem, 5vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-shadow: none;
+}
+
+.site-subtitle {
+  color: #a1858d;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.1rem;
+}
+
+.champagne-deco {
+  opacity: 0.7;
+  font-size: 2rem;
+}
+
+.random-song-btn {
+  background: #c98e9b;
+  box-shadow: 0 4px 14px rgba(175, 111, 128, 0.16);
+  letter-spacing: 0.08em;
+}
+
+.random-song-btn:hover {
+  background: #b87989;
+  box-shadow: 0 6px 18px rgba(175, 111, 128, 0.2);
+}
+
+.card-container {
+  background: rgba(255, 253, 252, 0.88);
+  border: 1px solid rgba(193, 139, 151, 0.2);
+  border-radius: 22px;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  box-shadow: 0 12px 42px rgba(113, 77, 88, 0.075);
+  backdrop-filter: blur(12px);
+}
+
+.search-row {
+  margin-bottom: 1.35rem;
+}
+
+.search-row input {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ead5d8;
+  border-radius: 14px;
+  padding: 0.85rem 3rem 0.85rem 1.1rem;
+}
+
+.search-row input:focus {
+  border-color: #c98e9b;
+  box-shadow: 0 0 0 3px rgba(201, 142, 155, 0.11);
+}
+
+.search-icon {
+  color: #a9848e;
+  font-size: 1.45rem;
+}
+
+.filter-section {
+  gap: 0.9rem;
+  margin-bottom: 1.15rem;
+}
+
+.filter-group {
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.filter-label {
+  min-width: 3.5rem;
+  text-align: center;
+  background: #f8e9e9;
+  border: 1px solid #f0dcdf;
+  color: #9a6f7b;
+  padding: 0.34rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.filter-buttons {
+  gap: 0.45rem;
+}
+
+.filter-btn {
+  background: #fffdfc;
+  border: 1px solid #ead8dc;
+  color: #80666e;
+  padding: 0.36rem 0.82rem;
+  font-size: 0.79rem;
+}
+
+.filter-btn:hover {
+  background: #fbf0f0;
+  border-color: #d8aeb6;
+  color: #805963;
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: #c98e9b;
+  border-color: #c98e9b;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(175, 111, 128, 0.14);
+}
+
+.filter-btn.unavailable {
+  opacity: 0.5;
+}
+
+.active-filters-row {
+  background: #fbf3f2;
+  border: 1px solid #f0e0e1;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+}
+
+.active-filters-label {
+  color: #967d84;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.clear-btn {
+  border-color: #d7aab4;
+  color: #a36f7d;
+}
+
+.clear-btn:hover {
+  background: #c98e9b;
+  border-color: #c98e9b;
+  color: #fff;
+}
+
+.song-count {
+  color: #987f86;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.song-grid {
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 0.85rem;
+}
+
+.song-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #efdee1;
+  border-radius: 15px;
+  padding: 0.95rem 1rem 0.85rem;
+  box-shadow: 0 2px 10px rgba(112, 75, 85, 0.025);
+  animation: fadeInUp 0.28s ease both;
+}
+
+.song-card::before {
+  height: 2px;
+  background: linear-gradient(90deg, #ead0d4, #d69eaa, #edcdd2);
+}
+
+.song-card:hover {
+  transform: translateY(-2px);
+  border-color: #dfbcc3;
+  box-shadow: 0 8px 22px rgba(112, 75, 85, 0.07);
+}
+
+.song-title {
+  color: #5b454c;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.song-artist {
+  color: #9a8289;
+  font-size: 0.77rem;
+}
+
+.copy-btn {
+  background: #fcf3f3;
+  border: 1px solid #f0dfe1;
+  color: #9f7180;
+  border-radius: 8px;
+}
+
+.copy-btn:hover {
+  background: #f7e8e9;
+  border-color: #dcb8c0;
+}
+
+.song-tag {
+  border-width: 1px;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+}
+
+.song-tag.tag-推薦,
+.random-song-tag.tag-推薦 {
+  background: #f8e7e9;
+  color: #a46d7a;
+  border-color: #e9c9cf;
+}
+
+.song-tag.tag-新歌,
+.random-song-tag.tag-新歌 {
+  background: #fbf0eb;
+  color: #a77e75;
+  border-color: #efd9d2;
+}
+
+.song-tag.tag-中文,
+.random-song-tag.tag-中文 {
+  background: #f7eef0;
+  color: #9b7781;
+  border-color: #ead9dd;
+}
+
+.song-tag.tag-台語,
+.random-song-tag.tag-台語 {
+  background: #f5f0ea;
+  color: #9b806f;
+  border-color: #e9ded1;
+}
+
+.song-tag.tag-韓文,
+.random-song-tag.tag-韓文 {
+  background: #f0eef5;
+  color: #80758e;
+  border-color: #ded9e9;
+}
+
+.song-tag.tag-甜歌,
+.random-song-tag.tag-甜歌 {
+  background: #fbecf0;
+  color: #b07888;
+  border-color: #efcfd8;
+}
+
+.song-tag.tag-Emo,
+.random-song-tag.tag-Emo {
+  background: #f0edf2;
+  color: #817083;
+  border-color: #ded6e2;
+}
+
+.random-song-content {
+  background: linear-gradient(145deg, #fffdfc, #fbf0f1);
+  border: 1px solid #e4c5cc;
+  box-shadow: 0 18px 48px rgba(80, 53, 63, 0.18);
+}
+
+.random-song-title {
+  color: #634c55;
+}
+
+.random-song-btn-next {
+  background: #c98e9b;
+  box-shadow: 0 4px 12px rgba(175, 111, 128, 0.14);
+}
+
+.random-song-btn-next:hover {
+  background: #b87989;
+}
+
+.random-song-btn-close {
+  border-color: #dcb7bf;
+  color: #86636d;
+  background: #fff8f7;
+}
+
+.no-results {
+  color: #9a7f87;
+}
+
+@media (max-width: 600px) {
+  .main-wrapper {
+    padding: 0.7rem 0.7rem 2.5rem;
+  }
+
+  .site-header {
+    padding: 1.8rem 0.6rem 1.3rem;
+  }
+
+  .champagne-deco {
+    font-size: 1.45rem;
+  }
+
+  .filter-label {
+    min-width: 3.2rem;
+  }
+
+  .song-grid {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  }
+}

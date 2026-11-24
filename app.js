@@ -79,260 +79,250 @@ const CAT_TAGS = ["推薦", "新歌"];
 const LANG_TAGS = ["中文", "台語", "韓文"];
 
 // ===== 狀態 =====
-let activeTags = new Set();
+const activeTypes = new Set();
+const activeLanguages = new Set();
+const activeArtists = new Set();
 let searchQuery = "";
 
-// ===== DOM 元素 =====
 const songGrid = document.getElementById("songGrid");
 const songCount = document.getElementById("songCount");
 const clearBtn = document.getElementById("clearBtn");
 const searchInput = document.getElementById("searchInput");
 const activeFiltersLabel = document.getElementById("activeFiltersLabel");
 const bubblesContainer = document.getElementById("bubblesContainer");
-
-const moodButtonsContainer = document.getElementById("moodButtons");
-const categoryButtonsContainer = document.getElementById("categoryButtons");
+const typeButtonsContainer = document.getElementById("categoryButtons");
 const languageButtonsContainer = document.getElementById("languageButtons");
 const artistButtonsContainer = document.getElementById("artistButtons");
+const TYPE_TAGS = [...MOOD_TAGS, ...CAT_TAGS];
 
-// ===== 建立香檳泡泡背景 =====
+function getSongArtists(song) {
+  return song.artist.split(/\s*\/\s*/).map(name => name.trim()).filter(Boolean);
+}
+
+function getAllArtists() {
+  return [...new Set(songs.flatMap(getSongArtists))]
+    .sort((a, b) => a.localeCompare(b, "zh-Hant"));
+}
+
 function createBubbles() {
-  const emojis = ["🥂", "✨", "🫧"];
-  const animations = ["floatUp", "floatUpLeft", "floatUpSway"];
-  const count = 25;
-  for (let i = 0; i < count; i++) {
+  if (!bubblesContainer) return;
+  const emojis = ["🍒", "✦", "♡"];
+  for (let i = 0; i < 16; i++) {
     const bubble = document.createElement("div");
-    bubble.classList.add("bubble");
+    bubble.className = "bubble";
     bubble.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    bubble.style.left = `${Math.random() * 100}%`;
-    bubble.style.fontSize = `${0.8 + Math.random() * 1.6}rem`;
-    const duration = 10 + Math.random() * 14;
-    const delay = Math.random() * 20;
-    const animation = animations[Math.floor(Math.random() * animations.length)];
-    bubble.style.animation = `${animation} ${duration}s linear ${delay}s infinite`;
+    bubble.style.left = (Math.random() * 100) + "%";
+    bubble.style.fontSize = (0.75 + Math.random() * 0.8) + "rem";
+    bubble.style.animationDuration = (16 + Math.random() * 16) + "s";
+    bubble.style.animationDelay = (Math.random() * 16) + "s";
     bubblesContainer.appendChild(bubble);
   }
 }
 
-// ===== 取得過濾後的歌曲清單 =====
 function getFilteredSongs() {
+  const query = searchQuery.trim().toLocaleLowerCase();
   return songs.filter(song => {
-    const tagMatch = activeTags.size === 0 || [...activeTags].every(tag => song.tags.includes(tag));
-    const q = searchQuery.trim().toLowerCase();
-    const searchMatch = !q || song.title.toLowerCase().includes(q) || song.artist.toLowerCase().includes(q);
-    return tagMatch && searchMatch;
+    const typeMatch = activeTypes.size === 0 || song.tags.some(tag => activeTypes.has(tag));
+    const languageMatch = activeLanguages.size === 0 || song.tags.some(tag => activeLanguages.has(tag));
+    const artistNames = getSongArtists(song);
+    const artistMatch = activeArtists.size === 0 || artistNames.some(artist => activeArtists.has(artist));
+    const searchMatch = !query ||
+      song.title.toLocaleLowerCase().includes(query) ||
+      song.artist.toLocaleLowerCase().includes(query);
+    return typeMatch && languageMatch && artistMatch && searchMatch;
   });
 }
 
-// ===== 建立/更新篩選按鈕 =====
+function updateButtonGroup(container, values, counts, selectedSet) {
+  container.innerHTML = "";
+  values.forEach(value => {
+    const count = counts[value] || 0;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "filter-btn" + (selectedSet.has(value) ? " active" : "");
+    button.dataset.tag = value;
+    button.textContent = value + " (" + count + ")";
+    button.setAttribute("aria-pressed", String(selectedSet.has(value)));
+    if (count === 0 && !selectedSet.has(value)) button.classList.add("unavailable");
+    container.appendChild(button);
+  });
+}
+
 function renderFilters() {
   const filteredSongs = getFilteredSongs();
-  
-  // 計算目前過濾結果中，各個標籤出現的次數
-  const counts = {};
+  const tagCounts = {};
+  const artistCounts = {};
+
   filteredSongs.forEach(song => {
-    song.tags.forEach(t => {
-      counts[t] = (counts[t] || 0) + 1;
+    song.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+    getSongArtists(song).forEach(artist => {
+      artistCounts[artist] = (artistCounts[artist] || 0) + 1;
     });
   });
 
-  // 更新 氛圍、分類、語言 按鈕
-  updateButtonGroup(moodButtonsContainer, MOOD_TAGS, counts);
-  updateButtonGroup(categoryButtonsContainer, CAT_TAGS, counts);
-  updateButtonGroup(languageButtonsContainer, LANG_TAGS, counts);
-
-  // 更新 歌手 按鈕 (動態生成)
-  const allArtistTags = Array.from(new Set(songs.flatMap(s => s.tags)))
-    .filter(t => !MOOD_TAGS.includes(t) && !CAT_TAGS.includes(t) && !LANG_TAGS.includes(t) && t !== "") // 確保過濾掉空字串標籤
-    .sort();
-  
-  updateButtonGroup(artistButtonsContainer, allArtistTags, counts);
+  updateButtonGroup(typeButtonsContainer, TYPE_TAGS, tagCounts, activeTypes);
+  updateButtonGroup(languageButtonsContainer, LANG_TAGS, tagCounts, activeLanguages);
+  updateButtonGroup(artistButtonsContainer, getAllArtists(), artistCounts, activeArtists);
 }
 
-function updateButtonGroup(container, tagList, counts) {
-  container.innerHTML = "";
-  tagList.forEach(tag => {
-    const count = counts[tag] || 0;
-    const btn = document.createElement("button");
-    btn.className = `filter-btn ${activeTags.has(tag) ? 'active' : ''}`;
-    btn.dataset.tag = tag;
-    btn.textContent = `${tag} (${count})`;
-    if (count === 0 && !activeTags.has(tag)) {
-        btn.style.opacity = "0.5";
-    }
-    container.appendChild(btn);
-  });
+function toggleType(tag) {
+  if (activeTypes.has(tag)) activeTypes.delete(tag);
+  else activeTypes.add(tag);
+  renderAll();
 }
 
-// ===== 切換標籤 =====
-function toggleTag(tag) {
-  if (MOOD_TAGS.includes(tag)) {
-    // 如果點擊的是氛圍標籤，則清除所有其他標籤，只保留或切換此氛圍標籤
-    if (activeTags.has(tag) && activeTags.size === 1) {
-      activeTags.clear(); // 如果已經選中且是唯一標籤，則取消選中
-    } else {
-      activeTags.clear(); // 清除所有其他標籤
-      activeTags.add(tag); // 選中當前氛圍標籤
-    }
-  } else {
-    // 對於其他標籤，正常切換
-    if (activeTags.has(tag)) {
-      activeTags.delete(tag);
-    } else {
-      activeTags.add(tag);
-    }
-  }
-  renderSongs();
-  renderFilters();
-  updateActiveFiltersLabel();
+function toggleLanguage(tag) {
+  if (activeLanguages.has(tag)) activeLanguages.delete(tag);
+  else activeLanguages.add(tag);
+  renderAll();
 }
 
-// ===== 更新已選標籤顯示 =====
+function toggleArtist(artist) {
+  if (activeArtists.has(artist)) activeArtists.delete(artist);
+  else activeArtists.add(artist);
+  renderAll();
+}
+
 function updateActiveFiltersLabel() {
-  if (activeTags.size === 0 && !searchQuery) {
-    activeFiltersLabel.textContent = "尚未選擇任何分類";
-  } else {
-    const parts = [];
-    if (activeTags.size > 0) {
-      parts.push("篩選：" + [...activeTags].join("、"));
-    }
-    if (searchQuery) {
-      parts.push(`搜尋：「${searchQuery}」`);
-    }
-    activeFiltersLabel.textContent = parts.join("　");
-  }
+  const parts = [];
+  if (activeLanguages.size) parts.push("語言：" + [...activeLanguages].join("、"));
+  if (activeTypes.size) parts.push("類型：" + [...activeTypes].join("、"));
+  if (activeArtists.size) parts.push("歌手：" + [...activeArtists].join("、"));
+  if (searchQuery.trim()) parts.push("搜尋：「" + searchQuery.trim() + "」");
+  activeFiltersLabel.textContent = parts.length ? parts.join("　") : "尚未選擇任何分類";
 }
 
-// ===== 渲染歌單 =====
-function renderSongs() {
-  const filtered = getFilteredSongs();
-  filtered.sort((a, b) => a.title.length - b.title.length);
+function getTitleLength(title) {
+  const normalized = /^[\x00-\x7F\s]*$/.test(title) ? title.replace(/\s+/g, "") : title;
+  return Array.from(normalized).length;
+}
 
-  songCount.textContent = `共 ${filtered.length} 首歌曲`;
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderSongs() {
+  const filtered = getFilteredSongs()
+    .map((song, originalIndex) => ({ song: song, originalIndex: originalIndex }))
+    .sort((a, b) =>
+      getTitleLength(a.song.title) - getTitleLength(b.song.title) ||
+      a.originalIndex - b.originalIndex
+    )
+    .map(item => item.song);
+
+  songCount.textContent = "共 " + filtered.length + " 首歌曲";
 
   if (filtered.length === 0) {
-    songGrid.innerHTML = `
-      <div class="no-results">
-        <span class="emoji">🥂</span>
-        找不到符合的歌曲，換個關鍵字試試看吧！
-      </div>`;
+    songGrid.innerHTML = '<div class="no-results"><span class="emoji">🍒</span>找不到符合的歌曲，換個關鍵字試試看吧！</div>';
     return;
   }
 
   songGrid.innerHTML = filtered.map(song => {
-    const displayTags = song.tags.filter(t => [...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS].includes(t));
-    const tagHTML = displayTags.map(tag => `<span class="song-tag tag-${tag}">${tag}</span>`).join("");
+    const displayTags = song.tags.filter(tag => [...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS].includes(tag));
+    const tagHTML = displayTags.map(tag =>
+      '<span class="song-tag tag-' + escapeHTML(tag) + '">' + escapeHTML(tag) + '</span>'
+    ).join("");
 
-    return `
-      <div class="song-card">
-        <div class="song-title-container">
-          <div class="song-title">${escapeHTML(song.title)}</div>
-          <button class="copy-btn" title="複製歌名" data-song="${escapeHTML(song.title)}">📋</button>
-        </div>
-        <div class="song-artist">${escapeHTML(song.artist)}</div>
-        <div class="song-tags">${tagHTML}</div>
-      </div>`;
+    return '<article class="song-card">' +
+      '<div class="song-title-container">' +
+      '<div class="song-title">' + escapeHTML(song.title) + '</div>' +
+      '<button class="copy-btn" type="button" title="複製歌名" aria-label="複製歌名：' + escapeHTML(song.title) + '" data-song="' + escapeHTML(song.title) + '">📋</button>' +
+      '</div><div class="song-artist">' + escapeHTML(song.artist) + '</div>' +
+      '<div class="song-tags">' + tagHTML + '</div></article>';
   }).join("");
 }
 
-// ===== HTML 轉義 =====
-function escapeHTML(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/\[/g, "&#91;")
-    .replace(/\]/g, "&#93;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+function renderAll() {
+  renderSongs();
+  renderFilters();
+  updateActiveFiltersLabel();
 }
 
-// ===== 監聽篩選按鈕點擊 (委派) =====
-[moodButtonsContainer, categoryButtonsContainer, languageButtonsContainer, artistButtonsContainer].forEach(container => {
-    container.addEventListener("click", (e) => {
-        const btn = e.target.closest(".filter-btn");
-        if (btn) {
-            toggleTag(btn.dataset.tag);
-        }
-    });
+typeButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleType(button.dataset.tag);
 });
 
-// ===== 清除篩選 =====
+languageButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleLanguage(button.dataset.tag);
+});
+
+artistButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleArtist(button.dataset.tag);
+});
+
 clearBtn.addEventListener("click", () => {
-  activeTags.clear();
+  activeTypes.clear();
+  activeLanguages.clear();
+  activeArtists.clear();
   searchQuery = "";
   searchInput.value = "";
-  renderSongs();
-  renderFilters();
-  updateActiveFiltersLabel();
+  renderAll();
 });
 
-// ===== 搜尋 =====
-searchInput.addEventListener("input", (e) => {
-  searchQuery = e.target.value;
-  renderSongs();
-  renderFilters();
-  updateActiveFiltersLabel();
+searchInput.addEventListener("input", event => {
+  searchQuery = event.target.value;
+  renderAll();
 });
 
-// ===== 隨機歌曲功能 =====
 const randomSongBtn = document.getElementById("randomSongBtn");
 const randomSongModal = document.getElementById("randomSongModal");
 const randomSongBtnNext = document.getElementById("randomSongBtnNext");
 const randomSongBtnClose = document.getElementById("randomSongBtnClose");
 
 function getRandomSong() {
-  return songs[Math.floor(Math.random() * songs.length)];
+  const eligibleSongs = getFilteredSongs();
+  const pool = eligibleSongs.length ? eligibleSongs : songs;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function displayRandomSong(song) {
   document.getElementById("randomSongTitle").textContent = song.title;
   document.getElementById("randomSongArtist").textContent = song.artist;
-  
   const tagsContainer = document.getElementById("randomSongTags");
   tagsContainer.innerHTML = song.tags
     .filter(tag => [...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS].includes(tag))
-    .map(tag => `<span class="random-song-tag tag-${tag}">${tag}</span>`)
+    .map(tag => '<span class="random-song-tag tag-' + escapeHTML(tag) + '">' + escapeHTML(tag) + '</span>')
     .join("");
-  
   randomSongModal.classList.add("active");
 }
 
-randomSongBtn.addEventListener("click", () => {
-  displayRandomSong(getRandomSong());
+randomSongBtn.addEventListener("click", () => displayRandomSong(getRandomSong()));
+randomSongBtnNext.addEventListener("click", () => displayRandomSong(getRandomSong()));
+randomSongBtnClose.addEventListener("click", () => randomSongModal.classList.remove("active"));
+randomSongModal.addEventListener("click", event => {
+  if (event.target === randomSongModal) randomSongModal.classList.remove("active");
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") randomSongModal.classList.remove("active");
 });
 
-randomSongBtnNext.addEventListener("click", () => {
-  displayRandomSong(getRandomSong());
+document.addEventListener("click", async event => {
+  const button = event.target.closest(".copy-btn");
+  if (!button) return;
+  const originalText = button.textContent;
+  try {
+    await navigator.clipboard.writeText(button.dataset.song);
+    button.textContent = "✓";
+  } catch (error) {
+    button.textContent = "複製失敗";
+    console.error("複製失敗：", error);
+  }
+  setTimeout(() => { button.textContent = originalText; }, 1400);
 });
 
-randomSongBtnClose.addEventListener("click", () => {
-  randomSongModal.classList.remove("active");
-});
-
-randomSongModal.addEventListener("click", (e) => {
-  if (e.target === randomSongModal) randomSongModal.classList.remove("active");
-});
-
-// ===== 設定複製功能 (委派) =====
-document.addEventListener("click", (e) => {
-    const copyBtn = e.target.closest(".copy-btn");
-    if (copyBtn) {
-        e.preventDefault();
-        const songTitle = copyBtn.dataset.song;
-        navigator.clipboard.writeText(songTitle).then(() => {
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = "✓ 已複製";
-            setTimeout(() => { copyBtn.textContent = originalText; }, 1500);
-        }).catch(err => console.error("複製失敗:", err));
-    }
-});
-
-// ===== 初始化 =====
 function init() {
   createBubbles();
-  renderFilters();
-  renderSongs();
-  updateActiveFiltersLabel();
+  renderAll();
 }
 
 init();
