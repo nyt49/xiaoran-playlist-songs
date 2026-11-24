@@ -16,8 +16,7 @@ export function FilterChip({
   return (
     <button
       type="button"
-      role="radio"
-      aria-checked={active}
+      aria-pressed={active}
       onClick={onClick}
       className={cn(
         "inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2 text-sm transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
