@@ -4,7 +4,7 @@ import type { Catalog, LabelKind, Song } from "@/lib/catalog";
 
 const OWNER = "nyt49";
 const REPO = "xiaoran-playlist-songs";
-const BRANCH = "preview-browser-fix";
+const BRANCH = "main";
 const CATALOG_PATH = "lovable-app/public/catalog.json";
 const API_ROOT = "https://api.github.com";
 let adminToken: string | null = null;
