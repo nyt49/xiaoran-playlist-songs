@@ -110,7 +110,7 @@ export function songHasArtist(song: Pick<Song, "artist">, key: string): boolean 
 export type LabelFilter = { value: CategoryFilter | CategoryFilter[]; groupIds: string[] };
 
 export function labelsOfKind(categories: Category[], kind: LabelKind): Category[] {
-  return categories.filter((c) => c.kind === kind);
+  return categories.filter((c) => c.kind === kind).sort((a, b) => a.sort_order - b.sort_order);
 }
 
 export function labelFilter(
