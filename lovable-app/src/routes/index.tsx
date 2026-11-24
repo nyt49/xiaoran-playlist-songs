@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useDeferredValue, useMemo, useState, type ReactNode } from "react";
+import { useDeferredValue, useMemo, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { Search, Shuffle, X, RadioTower, ChevronDown, Mic2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,7 @@ import {
   labelFilter,
   labelsOfKind,
   songLabels,
+  sortSongsByTitleLength,
   type CategoryFilter,
   type LabelKind,
   type Song,
@@ -53,17 +54,19 @@ function Home() {
   const { songs, categories } = data;
 
   const [query, setQuery] = useState("");
-  const [language, setLanguage] = useState<CategoryFilter>(null);
-  const [genre, setGenre] = useState<CategoryFilter>(null);
-  const selected: Record<LabelKind, CategoryFilter> = { language, genre };
-  const setSelected: Record<LabelKind, (v: CategoryFilter) => void> = { language: setLanguage, genre: setGenre };
+  const [language, setLanguage] = useState<CategoryFilter[]>([]);
+  const [genre, setGenre] = useState<CategoryFilter[]>([]);
+  const selected: Record<LabelKind, CategoryFilter[]> = { language, genre };
+  const setSelected: Record<LabelKind, Dispatch<SetStateAction<CategoryFilter[]>>> = {
+    language: setLanguage,
+    genre: setGenre,
+  };
   const [artist, setArtist] = useState<string | null>(null);
   const [showAllArtists, setShowAllArtists] = useState(false);
   const [randomOpen, setRandomOpen] = useState(false);
   const deferredQuery = useDeferredValue(query);
 
   const categoryName = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
-  const numberOf = useMemo(() => new Map(songs.map((s, i) => [s.id, i + 1])), [songs]);
   const counts = useMemo(() => countByCategory(songs), [songs]);
 
   const visible = useMemo(
@@ -75,6 +78,7 @@ function Home() {
       }),
     [songs, categories, deferredQuery, artist, language, genre],
   );
+  const sortedVisible = useMemo(() => sortSongsByTitleLength(visible), [visible]);
   const artistOptions = useMemo(() => buildArtistOptions(songs), [songs]);
   const activeArtist = artistOptions.find((a) => a.key === artist) ?? null;
   const ARTIST_PREVIEW = 14;
@@ -87,19 +91,21 @@ function Home() {
   };
   const clearAll = () => {
     setQuery("");
-    setLanguage(null);
-    setGenre(null);
+    setLanguage([]);
+    setGenre([]);
     setArtist(null);
   };
 
   const labelsOf = (song: Song) => songLabels(song, categories);
   const filterName = (v: CategoryFilter) =>
     v === null ? null : v === UNCATEGORIZED ? "未標記" : (categoryName.get(v) ?? null);
-  const activeParts = [filterName(language), filterName(genre), activeArtist?.name ?? null].filter(
-    (x): x is string => x !== null,
-  );
+  const activeParts = [
+    ...language.map(filterName),
+    ...genre.map(filterName),
+    activeArtist?.name ?? null,
+  ].filter((x): x is string => x !== null);
   const activeCategoryLabel = activeParts.length ? activeParts.join(" · ") : "全部";
-  const isFiltering = query.trim() !== "" || language !== null || genre !== null || artist !== null;
+  const isFiltering = query.trim() !== "" || language.length > 0 || genre.length > 0 || artist !== null;
 
   const groups = LABEL_KINDS.map(({ kind, title }) => {
     const list = labelsOfKind(categories, kind);
@@ -207,7 +213,7 @@ function Home() {
                 {g.title}
               </p>
               <div
-                role="radiogroup"
+                role="group"
                 aria-label={`依${g.title}篩選`}
                 className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0"
               >
@@ -215,10 +221,19 @@ function Home() {
                   <FilterChip
                     key={chip.value ?? "all"}
                     tone={g.kind === "language" ? "butter" : "cherry"}
-                    active={selected[g.kind] === chip.value}
+                    active={chip.value === null ? selected[g.kind].length === 0 : selected[g.kind].includes(chip.value)}
                     label={chip.label}
                     count={chip.count}
-                    onClick={() => setSelected[g.kind](chip.value)}
+                    onClick={() => {
+                      const value = chip.value;
+                      if (value === null) {
+                        setSelected[g.kind]([]);
+                      } else {
+                        setSelected[g.kind]((current) =>
+                          current.includes(value) ? current.filter((item) => item !== value) : [...current, value],
+                        );
+                      }
+                    }}
                   />
                 ))}
               </div>
@@ -311,11 +326,10 @@ function Home() {
             />
           ) : (
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {visible.map((song, i) => (
+              {sortedVisible.map((song, i) => (
                 <SongCard
                   key={song.id}
                   song={song}
-                  number={numberOf.get(song.id) ?? i + 1}
                   labels={labelsOf(song)}
                   activeArtist={artist}
                   onArtistClick={pickArtist}
