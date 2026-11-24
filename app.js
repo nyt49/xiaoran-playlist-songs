@@ -79,7 +79,8 @@ const CAT_TAGS = ["推薦", "新歌"];
 const LANG_TAGS = ["中文", "台語", "韓文"];
 
 // ===== 狀態 =====
-const activeTags = new Set();
+const activeTypes = new Set();
+const activeLanguages = new Set();
 const activeArtists = new Set();
 let searchQuery = "";
 
@@ -106,13 +107,13 @@ function getAllArtists() {
 function createBubbles() {
   if (!bubblesContainer) return;
   const emojis = ["🍒", "✦", "♡"];
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 16; i++) {
     const bubble = document.createElement("div");
     bubble.className = "bubble";
     bubble.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     bubble.style.left = (Math.random() * 100) + "%";
-    bubble.style.fontSize = (0.8 + Math.random() * 1.1) + "rem";
-    bubble.style.animationDuration = (14 + Math.random() * 16) + "s";
+    bubble.style.fontSize = (0.75 + Math.random() * 0.8) + "rem";
+    bubble.style.animationDuration = (16 + Math.random() * 16) + "s";
     bubble.style.animationDelay = (Math.random() * 16) + "s";
     bubblesContainer.appendChild(bubble);
   }
@@ -121,13 +122,14 @@ function createBubbles() {
 function getFilteredSongs() {
   const query = searchQuery.trim().toLocaleLowerCase();
   return songs.filter(song => {
-    const tagMatch = [...activeTags].every(tag => song.tags.includes(tag));
+    const typeMatch = activeTypes.size === 0 || song.tags.some(tag => activeTypes.has(tag));
+    const languageMatch = activeLanguages.size === 0 || song.tags.some(tag => activeLanguages.has(tag));
     const artistNames = getSongArtists(song);
-    const artistMatch = [...activeArtists].every(artist => artistNames.includes(artist));
+    const artistMatch = activeArtists.size === 0 || artistNames.some(artist => activeArtists.has(artist));
     const searchMatch = !query ||
       song.title.toLocaleLowerCase().includes(query) ||
       song.artist.toLocaleLowerCase().includes(query);
-    return tagMatch && artistMatch && searchMatch;
+    return typeMatch && languageMatch && artistMatch && searchMatch;
   });
 }
 
@@ -160,14 +162,20 @@ function renderFilters() {
     });
   });
 
-  updateButtonGroup(typeButtonsContainer, TYPE_TAGS, tagCounts, activeTags);
-  updateButtonGroup(languageButtonsContainer, LANG_TAGS, tagCounts, activeTags);
+  updateButtonGroup(typeButtonsContainer, TYPE_TAGS, tagCounts, activeTypes);
+  updateButtonGroup(languageButtonsContainer, LANG_TAGS, tagCounts, activeLanguages);
   updateButtonGroup(artistButtonsContainer, getAllArtists(), artistCounts, activeArtists);
 }
 
-function toggleTag(tag) {
-  if (activeTags.has(tag)) activeTags.delete(tag);
-  else activeTags.add(tag);
+function toggleType(tag) {
+  if (activeTypes.has(tag)) activeTypes.delete(tag);
+  else activeTypes.add(tag);
+  renderAll();
+}
+
+function toggleLanguage(tag) {
+  if (activeLanguages.has(tag)) activeLanguages.delete(tag);
+  else activeLanguages.add(tag);
   renderAll();
 }
 
@@ -179,7 +187,8 @@ function toggleArtist(artist) {
 
 function updateActiveFiltersLabel() {
   const parts = [];
-  if (activeTags.size) parts.push("分類：" + [...activeTags].join("、"));
+  if (activeLanguages.size) parts.push("語言：" + [...activeLanguages].join("、"));
+  if (activeTypes.size) parts.push("類型：" + [...activeTypes].join("、"));
   if (activeArtists.size) parts.push("歌手：" + [...activeArtists].join("、"));
   if (searchQuery.trim()) parts.push("搜尋：「" + searchQuery.trim() + "」");
   activeFiltersLabel.textContent = parts.length ? parts.join("　") : "尚未選擇任何分類";
@@ -236,11 +245,14 @@ function renderAll() {
   updateActiveFiltersLabel();
 }
 
-[typeButtonsContainer, languageButtonsContainer].forEach(container => {
-  container.addEventListener("click", event => {
-    const button = event.target.closest(".filter-btn");
-    if (button) toggleTag(button.dataset.tag);
-  });
+typeButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleType(button.dataset.tag);
+});
+
+languageButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleLanguage(button.dataset.tag);
 });
 
 artistButtonsContainer.addEventListener("click", event => {
@@ -249,7 +261,8 @@ artistButtonsContainer.addEventListener("click", event => {
 });
 
 clearBtn.addEventListener("click", () => {
-  activeTags.clear();
+  activeTypes.clear();
+  activeLanguages.clear();
   activeArtists.clear();
   searchQuery = "";
   searchInput.value = "";
