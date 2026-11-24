@@ -928,8 +928,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
 
 // Public, read-only catalog. RLS allows anonymous SELECT only; all writes require the admin role.
 export const getCatalog = createServerFn({ method: "GET" }).handler(async (): Promise<Catalog> => {
-  const url = process.env["SUPABASE_URL"];
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+  const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
   if (!url || !key) return PREVIEW_CATALOG_FALLBACK;
 
   const client = createClient<Database>(url, key, {
