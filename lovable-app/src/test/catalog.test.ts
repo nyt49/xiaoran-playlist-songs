@@ -13,6 +13,7 @@ import {
   filterSongs,
   nextSortOrder,
   pickRandomSong,
+  sortSongsByTitleLength,
   type Category,
   type Song,
 } from "@/lib/catalog";
@@ -75,6 +76,21 @@ describe("語言 and 類型 filters", () => {
     expect(filterSongs(songs, { labels: [lang(null), genre(null)] })).toHaveLength(5);
   });
 
+  it("supports multi-select OR within a group and AND across groups", () => {
+    expect(filterSongs(songs, { labels: [labelFilter(tags, "language", ["zh", "kr"])] }).map((s) => s.id)).toEqual(["1", "3", "5"]);
+    expect(
+      filterSongs(songs, {
+        labels: [labelFilter(tags, "language", ["zh", "kr"]), labelFilter(tags, "genre", ["sweet", "rec"])],
+      }).map((s) => s.id),
+    ).toEqual(["1", "3"]);
+  });
+
+  it("combines 未標記 with selected labels using OR inside the same group", () => {
+    expect(filterSongs(songs, { labels: [labelFilter(tags, "genre", [UNCATEGORIZED, "sweet"])] }).map((s) => s.id))
+      .toEqual(["1", "2", "3", "4", "5"]);
+  });
+
+
   it("split a song's labels into 語言 and 類型 for display", () => {
     expect(songLabels(songs[0]!, tags)).toEqual({ language: ["中文"], genre: ["甜歌", "推薦"] });
     expect(songLabels(songs[1]!, tags)).toEqual({ language: [], genre: [] });
@@ -89,6 +105,27 @@ describe("語言 and 類型 filters", () => {
 
   it("works out which labels to add and remove", () => {
     expect(diffTags(["zh", "sweet"], ["sweet", "rec"])).toEqual({ add: ["rec"], remove: ["zh"] });
+  });
+});
+
+describe("song title display order", () => {
+  it("sorts shortest to longest, ignores spaces in English-only titles, and keeps ties stable", () => {
+    const input = [
+      { title: "Without you" },
+      { title: "A B C" },
+      { title: "我愛你" },
+      { title: "甜" },
+      { title: "ABC" },
+      { title: "再見" },
+    ];
+    expect(sortSongsByTitleLength(input).map((song) => song.title)).toEqual([
+      "甜",
+      "再見",
+      "我愛你",
+      "A B C",
+      "ABC",
+      "Without you",
+    ]);
   });
 });
 
