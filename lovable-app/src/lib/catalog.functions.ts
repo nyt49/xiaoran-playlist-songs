@@ -926,21 +926,59 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
   ]
 };
 
-// Public, read-only catalog. RLS allows anonymous SELECT only; all writes require the admin role.
+// Keep a short-lived in-memory copy so every page request does not wait on GitHub.
+// The 10-second refresh window keeps admin edits visible quickly while avoiding a network
+// round-trip for every visitor/request handled by the same warm server instance.
+const GITHUB_CATALOG_CACHE_MS = 10_000;
+const GITHUB_CATALOG_URL = "https://raw.githubusercontent.com/nyt49/xiaoran-playlist-songs/main/lovable-app/public/catalog.json";
+let githubCatalogCache: { value: Catalog; expiresAt: number } | null = null;
+let githubCatalogInFlight: Promise<Catalog | null> | null = null;
+
+async function readGithubCatalog(): Promise<Catalog | null> {
+  const now = Date.now();
+  if (githubCatalogCache && githubCatalogCache.expiresAt > now) {
+    return githubCatalogCache.value;
+  }
+  if (githubCatalogInFlight) return githubCatalogInFlight;
+
+  githubCatalogInFlight = (async () => {
+    try {
+      // Change the cache key only once per refresh window, not on every request.
+      const version = Math.floor(now / GITHUB_CATALOG_CACHE_MS);
+      const response = await fetch(`${GITHUB_CATALOG_URL}?v=${version}`, {
+        cache: "no-store",
+        signal: AbortSignal.timeout(3500),
+      });
+      if (!response.ok) return null;
+
+      const value = (await response.json()) as Catalog;
+      if (!value || !Array.isArray(value.songs) || !Array.isArray(value.categories)) {
+        return null;
+      }
+
+      githubCatalogCache = {
+        value,
+        expiresAt: Date.now() + GITHUB_CATALOG_CACHE_MS,
+      };
+      return value;
+    } catch {
+      return null;
+    }
+  })();
+
+  try {
+    return await githubCatalogInFlight;
+  } finally {
+    githubCatalogInFlight = null;
+  }
+}
+
+// Public, read-only catalog. GitHub is the editable source of truth for this deployment.
 export const getCatalog = createServerFn({ method: "GET" }).handler(async (): Promise<Catalog> => {
   const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
-  // GitHub is the catalog store in this preview. Always fetch the latest branch file
-  // so edits saved from the admin are reflected on the public songbook without a rebuild.
-  try {
-    const response = await fetch(
-      `https://raw.githubusercontent.com/nyt49/xiaoran-playlist-songs/main/lovable-app/public/catalog.json?v=${Date.now()}`,
-      { cache: "no-store" },
-    );
-    if (response.ok) return (await response.json()) as Catalog;
-  } catch {
-    // Keep the bundled catalog available if GitHub is temporarily unreachable.
-  }
+  const githubCatalog = await readGithubCatalog();
+  if (githubCatalog) return githubCatalog;
   if (!url || !key) return PREVIEW_CATALOG_FALLBACK;
 
   const client = createClient<Database>(url, key, {
