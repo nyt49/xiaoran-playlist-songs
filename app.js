@@ -23,6 +23,7 @@ const songs = [
   { title: "不靈不靈", artist: "很美味", tags: ["中文", "甜歌", "很美味"] },
   { title: "有點甜", artist: "汪蘇瀧 / BY2", tags: ["中文", "甜歌", "汪蘇瀧", "BY2"] },
   { title: "愛ㄚ愛ㄚ", artist: "BY2", tags: ["中文", "甜歌", "BY2"] },
+
   // Emo
   { title: "座位", artist: "姚曉棠", tags: ["中文", "Emo", "姚曉棠"] },
   { title: "唯一", artist: "告五人", tags: ["中文", "Emo", "告五人"] },
@@ -47,6 +48,7 @@ const songs = [
   { title: "如果可以", artist: "韋禮安", tags: ["中文", "Emo", "韋禮安"] },
   { title: "介意", artist: "白峻嘉", tags: ["中文", "Emo", "白峻嘉"] },
   { title: "沒理由", artist: "BY2", tags: ["中文", "Emo", "BY2"] },
+
   // 其他歌曲
   { title: "致愛", artist: "鹿晗", tags: ["中文", "鹿晗"] },
   { title: "離開的一路上", artist: "理想混蛋", tags: ["中文", "理想混蛋"] },
@@ -71,13 +73,14 @@ const songs = [
   { title: "Without you", artist: "NCT", tags: ["中文", "NCT"] }
 ];
 
+// 預定義的分類
 const MOOD_TAGS = ["甜歌", "Emo"];
 const CAT_TAGS = ["推薦", "新歌"];
-const LANG_TAGS = ["中文", "韓文", "台語"];
-const RESERVED_TAGS = new Set([...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS]);
+const LANG_TAGS = ["中文", "台語", "韓文"];
 
-// Filters are kept in independent groups: every selected value is an AND condition.
+// ===== 狀態 =====
 const activeTags = new Set();
+const activeArtists = new Set();
 let searchQuery = "";
 
 const songGrid = document.getElementById("songGrid");
@@ -86,97 +89,80 @@ const clearBtn = document.getElementById("clearBtn");
 const searchInput = document.getElementById("searchInput");
 const activeFiltersLabel = document.getElementById("activeFiltersLabel");
 const bubblesContainer = document.getElementById("bubblesContainer");
-const categoryButtonsContainer = document.getElementById("categoryButtons");
+const typeButtonsContainer = document.getElementById("categoryButtons");
 const languageButtonsContainer = document.getElementById("languageButtons");
 const artistButtonsContainer = document.getElementById("artistButtons");
+const TYPE_TAGS = [...MOOD_TAGS, ...CAT_TAGS];
+
+function getSongArtists(song) {
+  return song.artist.split(/\s*\/\s*/).map(name => name.trim()).filter(Boolean);
+}
+
+function getAllArtists() {
+  return [...new Set(songs.flatMap(getSongArtists))]
+    .sort((a, b) => a.localeCompare(b, "zh-Hant"));
+}
 
 function createBubbles() {
   if (!bubblesContainer) return;
   const emojis = ["🍒", "✦", "♡"];
-  const count = 16;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 18; i++) {
     const bubble = document.createElement("div");
     bubble.className = "bubble";
     bubble.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    bubble.style.left = `${Math.random() * 100}%`;
-    bubble.style.fontSize = `${0.8 + Math.random() * 1.1}rem`;
-    bubble.style.animationDuration = `${14 + Math.random() * 16}s`;
-    bubble.style.animationDelay = `${Math.random() * 16}s`;
+    bubble.style.left = (Math.random() * 100) + "%";
+    bubble.style.fontSize = (0.8 + Math.random() * 1.1) + "rem";
+    bubble.style.animationDuration = (14 + Math.random() * 16) + "s";
+    bubble.style.animationDelay = (Math.random() * 16) + "s";
     bubblesContainer.appendChild(bubble);
   }
 }
 
-function songMatches(song) {
-  const selected = [...activeTags];
-  const tagsMatch = selected.every(tag => song.tags.includes(tag));
-  const q = searchQuery.trim().toLocaleLowerCase();
-  const searchMatch = !q ||
-    song.title.toLocaleLowerCase().includes(q) ||
-    song.artist.toLocaleLowerCase().includes(q);
-  return tagsMatch && searchMatch;
-}
-
 function getFilteredSongs() {
-  // String.fromCodePoint length counts visible Unicode code points;
-  // English spacing is ignored as requested. Stable tie-break uses original order.
-  return songs
-    .map((song, index) => ({ song, index }))
-    .filter(({ song }) => songMatches(song))
-    .sort((a, b) => {
-      const count = title => Array.from(title.replace(/\s+/g, "")).length;
-      return count(a.song.title) - count(b.song.title) || a.index - b.index;
-    })
-    .map(({ song }) => song);
+  const query = searchQuery.trim().toLocaleLowerCase();
+  return songs.filter(song => {
+    const tagMatch = [...activeTags].every(tag => song.tags.includes(tag));
+    const artistNames = getSongArtists(song);
+    const artistMatch = [...activeArtists].every(artist => artistNames.includes(artist));
+    const searchMatch = !query ||
+      song.title.toLocaleLowerCase().includes(query) ||
+      song.artist.toLocaleLowerCase().includes(query);
+    return tagMatch && artistMatch && searchMatch;
+  });
 }
 
-function getArtistNames() {
-  return [...new Set(songs.flatMap(song => song.artist.split(/\s*\/\s*/).map(name => name.trim())))]
-    .filter(Boolean)
-    .sort((a, b) => a.localeCompare(b, "zh-Hant"));
-}
-
-function updateButtonGroup(container, values, counts, selectedValues = values) {
+function updateButtonGroup(container, values, counts, selectedSet) {
   container.innerHTML = "";
   values.forEach(value => {
     const count = counts[value] || 0;
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `filter-btn ${activeTags.has(value) ? "active" : ""}`;
+    button.className = "filter-btn" + (selectedSet.has(value) ? " active" : "");
     button.dataset.tag = value;
-    button.textContent = `${value} (${count})`;
-    button.setAttribute("aria-pressed", String(activeTags.has(value)));
-    if (!count && !activeTags.has(value)) button.classList.add("unavailable");
+    button.textContent = value + " (" + count + ")";
+    button.setAttribute("aria-pressed", String(selectedSet.has(value)));
+    if (count === 0 && !selectedSet.has(value)) button.classList.add("unavailable");
     container.appendChild(button);
   });
 }
 
 function renderFilters() {
   const filteredSongs = getFilteredSongs();
-  const counts = {};
-  // Counts are computed against all songs except the current selection in the same filter group,
-  // so options remain discoverable while users refine a group.
-  const groups = [
-    { container: languageButtonsContainer, values: LANG_TAGS },
-    { container: categoryButtonsContainer, values: [...MOOD_TAGS, ...CAT_TAGS] },
-    { container: artistButtonsContainer, values: getArtistNames() }
-  ];
+  const tagCounts = {};
+  const artistCounts = {};
 
-  groups.forEach(({ container, values }) => {
-    const otherSelections = [...activeTags].filter(tag =>
-      !values.includes(tag) || (values === getArtistNames() && !values.includes(tag))
-    );
-    const candidates = songs.filter(song =>
-      otherSelections.every(tag => song.tags.includes(tag)) &&
-      (!searchQuery.trim() ||
-        song.title.toLocaleLowerCase().includes(searchQuery.trim().toLocaleLowerCase()) ||
-        song.artist.toLocaleLowerCase().includes(searchQuery.trim().toLocaleLowerCase()))
-    );
-    candidates.forEach(song => {
-      [...song.tags, ...song.artist.split(/\s*\/\s*/).map(name => name.trim())]
-        .forEach(tag => { counts[tag] = (counts[tag] || 0) + 1; });
+  filteredSongs.forEach(song => {
+    song.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
-    updateButtonGroup(container, values, counts);
+    getSongArtists(song).forEach(artist => {
+      artistCounts[artist] = (artistCounts[artist] || 0) + 1;
+    });
   });
+
+  updateButtonGroup(typeButtonsContainer, TYPE_TAGS, tagCounts, activeTags);
+  updateButtonGroup(languageButtonsContainer, LANG_TAGS, tagCounts, activeTags);
+  updateButtonGroup(artistButtonsContainer, getAllArtists(), artistCounts, activeArtists);
 }
 
 function toggleTag(tag) {
@@ -185,11 +171,23 @@ function toggleTag(tag) {
   renderAll();
 }
 
+function toggleArtist(artist) {
+  if (activeArtists.has(artist)) activeArtists.delete(artist);
+  else activeArtists.add(artist);
+  renderAll();
+}
+
 function updateActiveFiltersLabel() {
   const parts = [];
-  if (activeTags.size) parts.push("篩選：" + [...activeTags].join("、"));
-  if (searchQuery.trim()) parts.push(`搜尋：「${searchQuery.trim()}」`);
+  if (activeTags.size) parts.push("分類：" + [...activeTags].join("、"));
+  if (activeArtists.size) parts.push("歌手：" + [...activeArtists].join("、"));
+  if (searchQuery.trim()) parts.push("搜尋：「" + searchQuery.trim() + "」");
   activeFiltersLabel.textContent = parts.length ? parts.join("　") : "尚未選擇任何分類";
+}
+
+function getTitleLength(title) {
+  const normalized = /^[\x00-\x7F\s]*$/.test(title) ? title.replace(/\s+/g, "") : title;
+  return Array.from(normalized).length;
 }
 
 function escapeHTML(value) {
@@ -202,32 +200,33 @@ function escapeHTML(value) {
 }
 
 function renderSongs() {
-  const filtered = getFilteredSongs();
-  songCount.textContent = `共 ${filtered.length} 首歌曲`;
+  const filtered = getFilteredSongs()
+    .map((song, originalIndex) => ({ song: song, originalIndex: originalIndex }))
+    .sort((a, b) =>
+      getTitleLength(a.song.title) - getTitleLength(b.song.title) ||
+      a.originalIndex - b.originalIndex
+    )
+    .map(item => item.song);
 
-  if (!filtered.length) {
-    songGrid.innerHTML = `
-      <div class="no-results">
-        <span class="emoji">🍒</span>
-        找不到符合的歌曲，換個關鍵字試試看吧！
-      </div>`;
+  songCount.textContent = "共 " + filtered.length + " 首歌曲";
+
+  if (filtered.length === 0) {
+    songGrid.innerHTML = '<div class="no-results"><span class="emoji">🍒</span>找不到符合的歌曲，換個關鍵字試試看吧！</div>';
     return;
   }
 
   songGrid.innerHTML = filtered.map(song => {
-    const visibleTags = song.tags.filter(tag => RESERVED_TAGS.has(tag));
-    const tagsHTML = visibleTags.map(tag =>
-      `<span class="song-tag tag-${escapeHTML(tag)}">${escapeHTML(tag)}</span>`
+    const displayTags = song.tags.filter(tag => [...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS].includes(tag));
+    const tagHTML = displayTags.map(tag =>
+      '<span class="song-tag tag-' + escapeHTML(tag) + '">' + escapeHTML(tag) + '</span>'
     ).join("");
-    return `
-      <article class="song-card">
-        <div class="song-title-container">
-          <div class="song-title">${escapeHTML(song.title)}</div>
-          <button class="copy-btn" type="button" title="複製歌名" aria-label="複製歌名：${escapeHTML(song.title)}" data-song="${escapeHTML(song.title)}">📋</button>
-        </div>
-        <div class="song-artist">${escapeHTML(song.artist)}</div>
-        <div class="song-tags">${tagsHTML}</div>
-      </article>`;
+
+    return '<article class="song-card">' +
+      '<div class="song-title-container">' +
+      '<div class="song-title">' + escapeHTML(song.title) + '</div>' +
+      '<button class="copy-btn" type="button" title="複製歌名" aria-label="複製歌名：' + escapeHTML(song.title) + '" data-song="' + escapeHTML(song.title) + '">📋</button>' +
+      '</div><div class="song-artist">' + escapeHTML(song.artist) + '</div>' +
+      '<div class="song-tags">' + tagHTML + '</div></article>';
   }).join("");
 }
 
@@ -237,15 +236,21 @@ function renderAll() {
   updateActiveFiltersLabel();
 }
 
-[categoryButtonsContainer, languageButtonsContainer, artistButtonsContainer].forEach(container => {
+[typeButtonsContainer, languageButtonsContainer].forEach(container => {
   container.addEventListener("click", event => {
     const button = event.target.closest(".filter-btn");
     if (button) toggleTag(button.dataset.tag);
   });
 });
 
+artistButtonsContainer.addEventListener("click", event => {
+  const button = event.target.closest(".filter-btn");
+  if (button) toggleArtist(button.dataset.tag);
+});
+
 clearBtn.addEventListener("click", () => {
   activeTags.clear();
+  activeArtists.clear();
   searchQuery = "";
   searchInput.value = "";
   renderAll();
@@ -270,9 +275,10 @@ function getRandomSong() {
 function displayRandomSong(song) {
   document.getElementById("randomSongTitle").textContent = song.title;
   document.getElementById("randomSongArtist").textContent = song.artist;
-  document.getElementById("randomSongTags").innerHTML = song.tags
-    .filter(tag => RESERVED_TAGS.has(tag))
-    .map(tag => `<span class="random-song-tag tag-${escapeHTML(tag)}">${escapeHTML(tag)}</span>`)
+  const tagsContainer = document.getElementById("randomSongTags");
+  tagsContainer.innerHTML = song.tags
+    .filter(tag => [...MOOD_TAGS, ...CAT_TAGS, ...LANG_TAGS].includes(tag))
+    .map(tag => '<span class="random-song-tag tag-' + escapeHTML(tag) + '">' + escapeHTML(tag) + '</span>')
     .join("");
   randomSongModal.classList.add("active");
 }
@@ -290,7 +296,7 @@ document.addEventListener("keydown", event => {
 document.addEventListener("click", async event => {
   const button = event.target.closest(".copy-btn");
   if (!button) return;
-  const original = button.textContent;
+  const originalText = button.textContent;
   try {
     await navigator.clipboard.writeText(button.dataset.song);
     button.textContent = "✓";
@@ -298,7 +304,7 @@ document.addEventListener("click", async event => {
     button.textContent = "複製失敗";
     console.error("複製失敗：", error);
   }
-  setTimeout(() => { button.textContent = original; }, 1400);
+  setTimeout(() => { button.textContent = originalText; }, 1400);
 });
 
 function init() {
