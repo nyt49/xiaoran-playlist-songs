@@ -64,7 +64,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "Mr.Chu",
       "tag_ids": [
         "5c3f4918-aedc-40d9-8e02-adff20ceb407",
-        "d70f3b86-959c-4e67-afb1-418ed568627c"
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -104,7 +105,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
         "d70f3b86-959c-4e67-afb1-418ed568627c",
-        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
       ]
     },
     {
@@ -113,7 +115,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 11,
       "title": "天空海",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -123,7 +126,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "愛不釋手",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "d70f3b86-959c-4e67-afb1-418ed568627c"
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -133,7 +137,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "這時煙火",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -143,7 +148,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "泡泡糖",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "d70f3b86-959c-4e67-afb1-418ed568627c"
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -162,7 +168,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 16,
       "title": "我們青春",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -202,7 +209,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
         "d70f3b86-959c-4e67-afb1-418ed568627c",
-        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -212,7 +220,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "青春修煉手冊",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "d70f3b86-959c-4e67-afb1-418ed568627c"
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -262,7 +271,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "Whatever",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "d70f3b86-959c-4e67-afb1-418ed568627c"
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -311,7 +321,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 31,
       "title": "Beatbox",
       "tag_ids": [
-        "5c3f4918-aedc-40d9-8e02-adff20ceb407"
+        "5c3f4918-aedc-40d9-8e02-adff20ceb407",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -341,7 +352,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "十二月的奇蹟",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -350,7 +362,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 35,
       "title": "Without you",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -361,7 +374,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
         "d70f3b86-959c-4e67-afb1-418ed568627c",
-        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -371,7 +385,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "為心導航",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -390,7 +405,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 39,
       "title": "彼得潘",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -476,8 +492,7 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 48,
       "title": "無垢",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
       ]
     },
     {
@@ -486,8 +501,7 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 49,
       "title": "真心話",
       "tag_ids": [
-        "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
       ]
     },
     {
@@ -519,7 +533,7 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       ]
     },
     {
-      "artist": "MP魔幻力量/阿信",
+      "artist": "MP魔幻力量/五月天",
       "id": "a52eacc8-4494-487b-8847-e3c92396b0e1",
       "sort_order": 53,
       "title": "天機",
@@ -542,7 +556,8 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 55,
       "title": "初雪",
       "tag_ids": [
-        "5c3f4918-aedc-40d9-8e02-adff20ceb407"
+        "5c3f4918-aedc-40d9-8e02-adff20ceb407",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
       ]
     },
     {
@@ -572,8 +587,7 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "太陽與地球",
       "tag_ids": [
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
-        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
-        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
       ]
     },
     {
@@ -583,8 +597,7 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "title": "我喜歡你",
       "tag_ids": [
         "532655a0-95be-4d40-976e-bfd48ecc1ab5",
-        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
-        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
       ]
     },
     {
@@ -636,6 +649,223 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
         "60fabdfb-dfcc-4161-8433-3166c32078ad",
         "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
       ]
+    },
+    {
+      "id": "d67c1ec8-b437-4699-bffc-7f7de451e070",
+      "title": "銹",
+      "artist": "h3r3",
+      "sort_order": 65,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "b01dd0ef-9ee6-4059-b6e6-e65314c08e07",
+      "title": "親愛的",
+      "artist": "h3r3",
+      "sort_order": 66,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "11281a7f-2d9a-4c2d-b5c8-f1469c5d200e",
+      "title": "One day",
+      "artist": "one piece",
+      "sort_order": 67,
+      "tag_ids": [
+        "ef4eb3eb-6650-4394-a673-3c00e3233d08",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
+      ]
+    },
+    {
+      "id": "5e21fc07-4385-49a9-899a-31f9f8375dad",
+      "title": "間距",
+      "artist": "en",
+      "sort_order": 68,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "4bf5317d-e62f-4deb-ba46-b99b270c1b12",
+      "title": "鼓動",
+      "artist": "真珠美人魚",
+      "sort_order": 69,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
+      ]
+    },
+    {
+      "id": "18b26fbf-e6bc-4084-97b1-32dc81d5abdd",
+      "title": "愛的百寶箱",
+      "artist": "真珠美人魚",
+      "sort_order": 70,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
+      ]
+    },
+    {
+      "id": "cf68bd07-719d-4fc2-81fe-fc905290e582",
+      "title": "相信自己",
+      "artist": "真珠美人魚",
+      "sort_order": 71,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
+      ]
+    },
+    {
+      "id": "9a898085-5aea-4544-aada-9b8e90e1fb8a",
+      "title": "稍息立正站好",
+      "artist": "范曉萱",
+      "sort_order": 72,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1"
+      ]
+    },
+    {
+      "id": "f92b11f5-c181-4aff-8ed1-be7daf760e7b",
+      "title": "大眠",
+      "artist": "王心凌",
+      "sort_order": 73,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "93076634-b843-4d26-a247-0f201baca69b",
+      "title": "彩虹的微笑",
+      "artist": "王心凌",
+      "sort_order": 74,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
+    },
+    {
+      "id": "2ef69e7d-d279-42fa-98d6-86a1daa1bdeb",
+      "title": "Honey",
+      "artist": "王心凌",
+      "sort_order": 75,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
+    },
+    {
+      "id": "6944d794-00dc-409d-8ef8-c7eb0cf43453",
+      "title": "不哭了",
+      "artist": "by2",
+      "sort_order": 76,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "40db7a57-f7da-48cb-b3d6-8ec9e60e669b",
+      "title": "妥協",
+      "artist": "en",
+      "sort_order": 77,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
+    },
+    {
+      "id": "17238d4e-e46d-4fde-8c4e-668a4dda295d",
+      "title": "青蘋果樂園",
+      "artist": "小虎隊",
+      "sort_order": 78,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
+    },
+    {
+      "id": "abaf6286-fb48-402d-ae33-8d621f087b6d",
+      "title": "戀愛告急",
+      "artist": "鞠婧禕",
+      "sort_order": 79,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
+    },
+    {
+      "id": "332497d3-691d-45fa-89e2-c8a2836eec42",
+      "title": "Catch Catch",
+      "artist": "YENA",
+      "sort_order": 80,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
+      ]
+    },
+    {
+      "id": "1f126eb5-9bb1-4801-a1b8-5e5b4a35bb32",
+      "title": "Yes or Yes",
+      "artist": "TWICE",
+      "sort_order": 81,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
+      ]
+    },
+    {
+      "id": "33b46466-bea9-4650-9186-daf32e189b70",
+      "title": "ei ei",
+      "artist": "偶像練習生",
+      "sort_order": 82,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
+      ]
+    },
+    {
+      "id": "38f4037a-78c6-4843-b86c-77c1a4709b73",
+      "title": "Yes OK",
+      "artist": "青春有你2",
+      "sort_order": 83,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "fbf3a3de-d6e2-4362-8d17-5389ba1a5368"
+      ]
+    },
+    {
+      "id": "bfa40bbb-2140-46c9-b2d5-816b9eaeb907",
+      "title": "愛的主打歌",
+      "artist": "蕭亞軒",
+      "sort_order": 84,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
+    },
+    {
+      "id": "2128c4bc-d2fe-44fe-a442-717101d8326a",
+      "title": "只對你有感覺",
+      "artist": "飛輪海",
+      "sort_order": 85,
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     }
   ],
   "categories": [
@@ -676,10 +906,22 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "sort_order": 3
     },
     {
-      "id": "439a6191-fa36-4727-a8b3-1297c69a14d1",
-      "kind": "genre",
-      "name": "新歌",
+      "id": "ef4eb3eb-6650-4394-a673-3c00e3233d08",
+      "kind": "language",
+      "name": "日文",
       "sort_order": 4
+    },
+    {
+      "id": "fbf3a3de-d6e2-4362-8d17-5389ba1a5368",
+      "kind": "genre",
+      "name": "偶像",
+      "sort_order": 4
+    },
+    {
+      "id": "ddc11f0a-c8dc-4498-ab69-54f2173b5ae1",
+      "kind": "genre",
+      "name": "動漫",
+      "sort_order": 5
     }
   ]
 };
