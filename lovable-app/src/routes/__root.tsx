@@ -130,6 +130,8 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => {
+    // Public read-only preview: do not initialize auth when no public Supabase config is present.
+    if (!import.meta.env['VITE_SUPABASE_URL'] || !import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY']) return;
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
