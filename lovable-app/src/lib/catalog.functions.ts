@@ -13,448 +13,629 @@ const PREVIEW_CATALOG_FALLBACK: Catalog = {
       "id": "be897748-111b-43b4-b1c0-c48e41fe237c",
       "sort_order": 1,
       "title": "愛ㄚ愛ㄚ",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "鹿晗",
       "id": "69232e9a-50a3-45db-9155-e069fecb8b23",
       "sort_order": 2,
       "title": "致愛",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "鹿晗",
       "id": "f6e0de61-482f-468a-bdb1-b8b90e6f2317",
       "sort_order": 3,
       "title": "我們的明天",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "張韶涵",
       "id": "f5d1f91a-0129-46d0-aaed-9bde07e2cfd8",
       "sort_order": 4,
       "title": "淋雨一直走",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "BY2",
       "id": "589d9593-865c-4544-ab7b-039d8190ae74",
       "sort_order": 5,
       "title": "愛情闖進門",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "Apink",
       "id": "4a0214ff-87c3-459b-86ea-5c6724a324d8",
       "sort_order": 6,
       "title": "Mr.Chu",
-      "tag_ids": []
+      "tag_ids": [
+        "5c3f4918-aedc-40d9-8e02-adff20ceb407",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "理想混蛋",
       "id": "2ae9f876-7fed-4146-ac2b-86cf95fdd432",
       "sort_order": 7,
       "title": "離開的一路上",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "周杰倫",
       "id": "7cd82f39-702b-4d66-812d-6b148dbe8e39",
       "sort_order": 8,
       "title": "告白氣球",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "汪蘇瀧 / BY2",
       "id": "657206a6-2d01-4b05-b231-fbbb0c3c29f7",
       "sort_order": 9,
       "title": "有點甜",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "真珠美人魚",
       "id": "bb5a3774-303f-4578-b0e5-9db9ebe3e61b",
       "sort_order": 10,
       "title": "七彩的微風",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "NCT",
       "id": "aa2d2823-1aaa-47ae-9ec3-fb18457b0900",
       "sort_order": 11,
       "title": "天空海",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "NCT",
       "id": "c13c37aa-c7eb-4e6e-b98a-3bcc3e790a04",
       "sort_order": 12,
       "title": "愛不釋手",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "NCT",
       "id": "aeb99fa6-aa21-4dd6-8246-a471381ebb60",
       "sort_order": 13,
       "title": "這時煙火",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "NCT",
       "id": "8925e8b3-2f23-4b15-a927-bcf3f46ef52e",
       "sort_order": 14,
       "title": "泡泡糖",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "Bii 畢書盡",
       "id": "1bdeea26-0c09-4839-b6f9-eb4f672e31c0",
       "sort_order": 15,
       "title": "Love More",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "TFBOYS",
       "id": "57fb7197-194a-47db-a780-c0d28bb72dd5",
       "sort_order": 16,
       "title": "我們青春",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "LBI利比",
       "id": "e8379f18-be37-4726-b26e-be3a86fbfec0",
       "sort_order": 17,
       "title": "小城夏天",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "郁可唯",
       "id": "12a36f8f-cb43-4ec1-80a1-801123fea351",
       "sort_order": 18,
       "title": "時間煮雨",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "汪蘇瀧",
       "id": "a818467c-da94-416a-abe3-b5f7919d43c6",
       "sort_order": 19,
       "title": "一笑傾城",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "TFBOYS",
       "id": "06b96d59-8577-47d5-9d6d-6bc6366fcdf7",
       "sort_order": 20,
       "title": "寵愛",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "TFBOYS",
       "id": "275e9ac7-162f-4655-9265-874630809305",
       "sort_order": 21,
       "title": "青春修煉手冊",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "周星星",
       "id": "0ec3d881-f9de-4184-bc5b-6c7524f6eb34",
       "sort_order": 22,
       "title": "我看過",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "韋禮安",
       "id": "df2b33a9-a46c-4efc-9b1d-f9931caca401",
       "sort_order": 23,
       "title": "女孩",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "五月天",
       "id": "89abfb17-5a4e-48be-8703-3971b0ac4a3d",
       "sort_order": 24,
       "title": "戀愛ing",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "郭書瑤",
       "id": "111afd1d-37a0-4fe1-b7fd-adabb74824fc",
       "sort_order": 25,
       "title": "Honey",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "PiXXiE",
       "id": "1fdf5c0e-1ae9-4aac-b4a9-adeada71f840",
       "sort_order": 26,
       "title": "Whatever",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "姚曉棠",
       "id": "ed53f181-3eb4-4436-9747-3a3cb6b5efad",
       "sort_order": 27,
       "title": "座位",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "MP魔幻力量",
       "id": "824af37c-c031-4b2b-82d9-664b96293afb",
       "sort_order": 28,
       "title": "我還是愛著你",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "八三夭",
       "id": "e0276d55-434c-49e1-8ed4-0d66bdcc4591",
       "sort_order": 29,
       "title": "想見你",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "韋禮安",
       "id": "015bcf29-2329-486a-a486-ba65cc44b62b",
       "sort_order": 30,
       "title": "如果可以",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "NCT",
       "id": "0771570d-c096-4a76-b9b7-fffe33697a0b",
       "sort_order": 31,
       "title": "Beatbox",
-      "tag_ids": []
+      "tag_ids": [
+        "5c3f4918-aedc-40d9-8e02-adff20ceb407"
+      ]
     },
     {
       "artist": "By2",
       "id": "d3718753-d5a9-4c36-b0cb-4b0d108fa530",
       "sort_order": 32,
       "title": "湊熱鬧",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "陳潔怡",
       "id": "e496d542-061d-4d57-9558-db247b877a77",
       "sort_order": 33,
       "title": "喜歡你",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "EXO",
       "id": "ea53ca2d-8afa-42f2-b74a-acb17e693936",
       "sort_order": 34,
       "title": "十二月的奇蹟",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "NCT",
       "id": "7d5a211c-f98f-4fbb-ae07-cc47f62c3114",
       "sort_order": 35,
       "title": "Without you",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "EXO",
       "id": "d39675c2-fb1c-48c9-865a-a808ca45d4b2",
       "sort_order": 36,
       "title": "蝴蝶少女",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "EXO",
       "id": "bb624dee-cfe7-47b8-b3f8-79643480b11c",
       "sort_order": 37,
       "title": "為心導航",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "告五人",
       "id": "c75452d3-6795-4d40-a8b9-b79de6d7e38a",
       "sort_order": 38,
       "title": "唯一",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "EXO",
       "id": "b9e927da-d44d-4279-8ce4-d68086c6f3e2",
       "sort_order": 39,
       "title": "彼得潘",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "張韶涵",
       "id": "eccbeba1-1ffb-4bca-b916-a72ebd341edf",
       "sort_order": 40,
       "title": "歐若拉",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "By2",
       "id": "aab178f3-ea0e-4728-b786-3c9db15d1d57",
       "sort_order": 41,
       "title": "你並不懂我",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "By2",
       "id": "51449e70-bb20-4719-b149-4739a9d0fa89",
       "sort_order": 42,
       "title": "新少女祈禱",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "Tyson Yoshi",
       "id": "4128c0c8-177b-4154-8edd-a9fff77140a2",
       "sort_order": 43,
       "title": "你不會一輩子的愛上我",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "王菲",
       "id": "a5b10715-fd62-48ad-8781-8aea3f8c260f",
       "sort_order": 44,
       "title": "百年孤寂",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "蔡依林",
       "id": "32641c34-444e-4c07-8fde-f4e5ac09f68e",
       "sort_order": 45,
       "title": "日不落",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "en",
       "id": "a572bd1d-6046-4909-a751-3a665ae29aa8",
       "sort_order": 46,
       "title": "囂張",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "By2",
       "id": "ff42ead0-13ee-4267-a346-2c0432644b95",
       "sort_order": 47,
       "title": "有沒有",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "李浩瑋",
       "id": "15cadbf5-efe3-4869-b341-db3f8b3a5376",
       "sort_order": 48,
       "title": "無垢",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+      ]
     },
     {
       "artist": "李浩瑋",
       "id": "b436024c-085c-41aa-9d05-13fac47523eb",
       "sort_order": 49,
       "title": "真心話",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+      ]
     },
     {
       "artist": "田馥甄",
       "id": "d92626aa-c3f7-426a-826c-ac96bf101aec",
       "sort_order": 50,
       "title": "小幸運",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "五月天",
       "id": "dc5ac9b6-6d10-4e14-93f5-97829e94a6fd",
       "sort_order": 51,
       "title": "星空",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "光良",
       "id": "e94af117-a5f5-4651-b57b-488a9109ddad",
       "sort_order": 52,
       "title": "童話",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "MP魔幻力量/阿信",
       "id": "a52eacc8-4494-487b-8847-e3c92396b0e1",
       "sort_order": 53,
       "title": "天機",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "陳勢安/畢書盡",
       "id": "825fcccb-899b-4c5b-8e8b-7e0f774a89f2",
       "sort_order": 54,
       "title": "勢在必行",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad"
+      ]
     },
     {
       "artist": "EXO",
       "id": "3baa51e7-a450-4e8e-8385-b681b891d484",
       "sort_order": 55,
       "title": "初雪",
-      "tag_ids": []
+      "tag_ids": [
+        "5c3f4918-aedc-40d9-8e02-adff20ceb407"
+      ]
     },
     {
       "artist": "李千娜",
       "id": "1897a85e-543b-460c-ab67-97db6fdef9f7",
       "sort_order": 56,
       "title": "心花開",
-      "tag_ids": []
+      "tag_ids": [
+        "532655a0-95be-4d40-976e-bfd48ecc1ab5",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "白峻嘉",
       "id": "ede5a05d-abcd-40d8-8914-499141ec1f98",
       "sort_order": 57,
       "title": "介意",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "盧廣仲",
       "id": "7b837bfa-e416-441b-a3c7-d8457731fc36",
       "sort_order": 58,
       "title": "太陽與地球",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+      ]
     },
     {
       "artist": "芒果醬",
       "id": "b46b802a-a328-4c4b-8664-e9e6041bb910",
       "sort_order": 59,
       "title": "我喜歡你",
-      "tag_ids": []
+      "tag_ids": [
+        "532655a0-95be-4d40-976e-bfd48ecc1ab5",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3",
+        "439a6191-fa36-4727-a8b3-1297c69a14d1"
+      ]
     },
     {
       "artist": "BY2",
       "id": "8c132f12-ddec-463f-a7d2-61bad8631ffa",
       "sort_order": 60,
       "title": "沒理由",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "楊丞琳",
       "id": "2d173a8f-1bc3-4c9c-98bf-6fa41b57b6e2",
       "sort_order": 61,
       "title": "雨愛",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     },
     {
       "artist": "巴大雄",
       "id": "db395d03-7b90-4772-892d-f425f9f4694c",
       "sort_order": 62,
       "title": "舅媽",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "3e2c97dc-308a-4c4e-b512-69f926ed1e21"
+      ]
     },
     {
       "artist": "很美味",
       "id": "a7d9930c-c903-46f9-bafe-56a980c95376",
       "sort_order": 63,
       "title": "不靈不靈",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "d70f3b86-959c-4e67-afb1-418ed568627c"
+      ]
     },
     {
       "artist": "翁祥",
       "id": "84d27b17-388b-4c68-87d1-f9d681a67e14",
       "sort_order": 64,
       "title": "每天在擔心",
-      "tag_ids": []
+      "tag_ids": [
+        "60fabdfb-dfcc-4161-8433-3166c32078ad",
+        "0f9e60df-7aed-40ac-89dc-661ce066b3c3"
+      ]
     }
   ],
   "categories": [
