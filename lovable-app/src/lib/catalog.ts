@@ -107,17 +107,30 @@ export function songHasArtist(song: Pick<Song, "artist">, key: string): boolean 
 }
 
 /** One label filter: `value` is null (any), UNCATEGORIZED (none from `groupIds`) or a label id. */
-export type LabelFilter = { value: CategoryFilter; groupIds: string[] };
+export type LabelFilter = { value: CategoryFilter | CategoryFilter[]; groupIds: string[] };
 
 export function labelsOfKind(categories: Category[], kind: LabelKind): Category[] {
   return categories.filter((c) => c.kind === kind);
 }
 
-export function labelFilter(categories: Category[], kind: LabelKind, value: CategoryFilter): LabelFilter {
+export function labelFilter(
+  categories: Category[],
+  kind: LabelKind,
+  value: CategoryFilter | CategoryFilter[],
+): LabelFilter {
   return { value, groupIds: labelsOfKind(categories, kind).map((c) => c.id) };
 }
 
 function passesLabelFilter(song: Pick<Song, "tag_ids">, f: LabelFilter): boolean {
+  // A list is a multi-select within one group: selected values use OR semantics.
+  if (Array.isArray(f.value)) {
+    if (f.value.length === 0) return true;
+    return f.value.some((value) => {
+      if (value === null) return true;
+      if (value === UNCATEGORIZED) return !song.tag_ids.some((id) => f.groupIds.includes(id));
+      return song.tag_ids.includes(value);
+    });
+  }
   if (f.value === null) return true;
   if (f.value === UNCATEGORIZED) return !song.tag_ids.some((id) => f.groupIds.includes(id));
   return song.tag_ids.includes(f.value);
@@ -176,6 +189,20 @@ export function songLabels(song: Pick<Song, "tag_ids">, categories: Category[]):
     language: tagNames(song, labelsOfKind(categories, "language")),
     genre: tagNames(song, labelsOfKind(categories, "genre")),
   };
+}
+
+/** Count title characters for display sorting; English-only titles ignore whitespace. */
+export function titleCharacterCount(title: string): number {
+  const normalized = /^[\\x00-\\x7F\\s]*$/.test(title) ? title.replace(/\\s+/g, "") : title;
+  return Array.from(normalized).length;
+}
+
+/** Stable frontend sort by title length; the original song records are never changed. */
+export function sortSongsByTitleLength<T extends Pick<Song, "title">>(items: readonly T[]): T[] {
+  return items
+    .map((song, index) => ({ song, index }))
+    .sort((a, b) => titleCharacterCount(a.song.title) - titleCharacterCount(b.song.title) || a.index - b.index)
+    .map(({ song }) => song);
 }
 
 export function nextSortOrder(songs: Pick<Song, "sort_order">[]): number {
