@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Cherry } from "@/components/radio/Cherry";
 import { pickRandomSong, type Song, type SongLabels } from "@/lib/catalog";
 import { LabelChips } from "@/components/radio/LabelChips";
+import { CopySongButton } from "@/components/radio/CopySongButton";
 
 const SHUFFLE_MS = 900;
 const TICK_MS = 75;
@@ -91,9 +92,12 @@ export function RandomPickDialog({
             <div aria-live="polite" aria-atomic="true" className="mt-4 min-h-[112px]">
               {shown ? (
                 <div key={tuning ? "t" : `r-${round}`} className={tuning ? "opacity-60" : "animate-pop-in"}>
-                  <p className="font-serif text-[28px] leading-tight font-semibold text-foreground text-balance sm:text-3xl">
-                    {shown.title}
-                  </p>
+                  <div className="flex items-center justify-center gap-1.5">
+                    <p className="font-serif text-[28px] leading-tight font-semibold text-foreground text-balance sm:text-3xl">
+                      {shown.title}
+                    </p>
+                    {!tuning && <CopySongButton title={shown.title} />}
+                  </div>
                   <DialogDescription className="mt-2 text-base text-muted-foreground">
                     {shown.artist}
                   </DialogDescription>
