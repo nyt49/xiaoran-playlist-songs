@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { artistSegments, type Song, type SongLabels } from "@/lib/catalog";
 import { LabelChips } from "@/components/radio/LabelChips";
+import { CopySongButton } from "@/components/radio/CopySongButton";
 import { cn } from "@/lib/utils";
 
 export function SongCard({
@@ -22,7 +23,10 @@ export function SongCard({
       className="group animate-rise-in relative rounded-2xl border border-border/70 bg-card px-4 py-4 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blush-deep hover:shadow-card sm:px-5"
     >
       <div className="min-w-0">
-        <h3 className="truncate font-serif text-[17px] leading-snug font-semibold text-foreground">{song.title}</h3>
+        <div className="flex items-start gap-2">
+          <h3 className="min-w-0 flex-1 truncate font-serif text-[17px] leading-snug font-semibold text-foreground">{song.title}</h3>
+          <CopySongButton title={song.title} />
+        </div>
         <p className="mt-0.5 truncate text-sm text-muted-foreground">
           <span className="sr-only">歌手：</span>
           {artistSegments(song.artist).map((seg, i) => {
