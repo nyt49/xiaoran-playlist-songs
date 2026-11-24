@@ -89,7 +89,7 @@ export async function verifyGitHubToken(token: string): Promise<{ login: string 
     throw new Error("這組 Token 沒有此歌單 repo 的寫入權限。請建立 Fine-grained Token，並將 Contents 設為 Read and write。");
   }
   await readCatalog(token);
-  return { login: user.login };
+  return { login: OWNER };
 }
 
 export async function setSongTags(songId: string, _current: string[], next: string[]) {
