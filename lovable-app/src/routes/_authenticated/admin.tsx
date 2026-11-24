@@ -26,7 +26,6 @@ import { checkIsAdmin, createSong, deleteSong, setSongTags, updateSong, type Son
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TagToggles } from "@/components/admin/TagToggles";
 import {
-  UNCATEGORIZED,
   countByCategory,
   filterSongs,
   nextSortOrder,
@@ -221,8 +220,6 @@ function Dashboard() {
     );
   }
 
-  const uncategorized = counts.get(UNCATEGORIZED) ?? 0;
-
   return (
     <>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
@@ -230,7 +227,7 @@ function Dashboard() {
           <p className="text-xs font-medium tracking-airy text-primary">STUDIO</p>
           <h1 className="mt-1 font-serif text-2xl font-semibold text-foreground sm:text-3xl">歌單後台</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            共 {songs.length} 首歌 · {categories.length} 個標籤 · {uncategorized} 首尚未標記
+            共 {songs.length} 首歌 · {categories.length} 個標籤
           </p>
         </div>
       </div>
@@ -265,7 +262,6 @@ function Dashboard() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>全部歌曲（{songs.length}）</SelectItem>
-                  <SelectItem value={UNCATEGORIZED}>尚未標記（{uncategorized}）</SelectItem>
                   {LABEL_KINDS.map(({ kind, title }) => (
                     <SelectGroup key={kind}>
                       <SelectLabel className="text-xs text-muted-foreground">{title}</SelectLabel>
@@ -327,7 +323,7 @@ function Dashboard() {
                         >
                           {savingId === song.id ? <Loader2 className="animate-spin" /> : <Tags />}
                           <span className="truncate">
-                            {song.tag_ids.length ? tagNames(song, categories).join("、") : "尚未標記"}
+                            {tagNames(song, categories).join("、")}
                           </span>
                         </Button>
                       </PopoverTrigger>
