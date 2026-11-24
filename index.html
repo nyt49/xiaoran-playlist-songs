@@ -3,96 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>小橪的音樂世界</title>
+  <meta name="theme-color" content="#fff5f4" />
+  <title>小橪的音樂世界 🍒</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- 背景香檳灑落動畫 -->
-  <div class="bubbles-container" id="bubblesContainer"></div>
-
-  <!-- 主容器 -->
-  <div class="main-wrapper">
+  <div class="bubbles-container" id="bubblesContainer" aria-hidden="true"></div>
+  <main class="main-wrapper">
     <header class="site-header">
-      <div class="champagne-deco left">🍒</div>
+      <div class="champagne-deco left" aria-hidden="true">🍒</div>
+      <p class="eyebrow">A LITTLE CORNER FOR MUSIC</p>
       <h1 class="site-title">小橪的音樂世界</h1>
-      <p class="site-subtitle">救救小北橪🍒</p>
-      <button class="random-song-btn" id="randomSongBtn" title="隨機播放一首歌">🎲 隨機一首</button>
-      <div class="champagne-deco right">🍒</div>
+      <p class="site-subtitle">把喜歡的旋律，收藏成日常。🍒</p>
+      <button class="random-song-btn" id="randomSongBtn" type="button">🎲 隨機一首</button>
+      <div class="champagne-deco right" aria-hidden="true">🍒</div>
     </header>
-
-    <div class="card-container">
-      <!-- 搜尋列 -->
+    <section class="card-container" aria-label="歌曲收藏清單">
       <div class="search-row">
-        <input type="text" id="searchInput" placeholder="搜尋歌曲或歌手..." />
-        <span class="search-icon">🔍</span>
+        <input type="search" id="searchInput" placeholder="搜尋歌曲或歌手..." autocomplete="off" aria-label="搜尋歌曲或歌手" />
+        <span class="search-icon" aria-hidden="true">⌕</span>
       </div>
-
-      <!-- 篩選按鈕區 -->
       <div class="filter-section">
-
-        <div class="filter-group">
-          <span class="filter-label">分類</span>
-          <div class="filter-buttons" id="categoryButtons">
-            <button class="filter-btn" data-tag="推薦">推薦</button>
-            <button class="filter-btn" data-tag="新歌">新歌</button>
-          </div>
-        </div>
         <div class="filter-group">
           <span class="filter-label">語言</span>
           <div class="filter-buttons" id="languageButtons">
-            <button class="filter-btn" data-tag="中文">中文</button>
-            <button class="filter-btn" data-tag="台語">台語</button>
-            <button class="filter-btn" data-tag="韓文">韓文</button>
+            <button class="filter-btn" data-tag="中文" type="button">中文</button>
+            <button class="filter-btn" data-tag="韓文" type="button">韓文</button>
+            <button class="filter-btn" data-tag="台語" type="button">台語</button>
           </div>
         </div>
         <div class="filter-group">
-          <span class="filter-label">氛圍</span>
-          <div class="filter-buttons" id="moodButtons">
-            <button class="filter-btn" data-tag="甜歌">甜歌</button>
-            <button class="filter-btn" data-tag="Emo">Emo</button>
+          <span class="filter-label">類型</span>
+          <div class="filter-buttons" id="categoryButtons">
+            <button class="filter-btn" data-tag="甜歌" type="button">甜歌</button>
+            <button class="filter-btn" data-tag="推薦" type="button">推薦</button>
+            <button class="filter-btn" data-tag="Emo" type="button">Emo</button>
+            <button class="filter-btn" data-tag="新歌" type="button">新歌</button>
           </div>
         </div>
         <div class="filter-group">
           <span class="filter-label">歌手</span>
-          <div class="filter-buttons" id="artistButtons">
-          </div>
+          <div class="filter-buttons" id="artistButtons"></div>
         </div>
       </div>
-
-      <!-- 已選標籤 & 清除 -->
       <div class="active-filters-row" id="activeFiltersRow">
         <span class="active-filters-label" id="activeFiltersLabel">尚未選擇任何分類</span>
-        <button class="clear-btn" id="clearBtn">清除篩選</button>
+        <button class="clear-btn" id="clearBtn" type="button">清除篩選</button>
       </div>
-
-      <!-- 歌曲數量 -->
-      <div class="song-count" id="songCount">共 0 首歌曲</div>
-
-      <!-- 歌單列表 -->
-      <div class="song-grid" id="songGrid">
-        <!-- 動態生成 -->
-      </div>
-    </div>
-  </div>
-
-  <!-- 隨機歌曲彈出視窗 -->
-  <div class="random-song-modal" id="randomSongModal">
+      <div class="song-count" id="songCount" aria-live="polite">共 0 首歌曲</div>
+      <div class="song-grid" id="songGrid"></div>
+    </section>
+  </main>
+  <div class="random-song-modal" id="randomSongModal" role="dialog" aria-modal="true" aria-labelledby="randomSongTitle">
     <div class="random-song-content">
-      <span class="random-song-emoji" id="randomSongEmoji">🎵</span>
+      <span class="random-song-emoji" id="randomSongEmoji" aria-hidden="true">🎵</span>
       <div class="random-song-title" id="randomSongTitle">歌曲名稱</div>
       <div class="random-song-artist" id="randomSongArtist">歌手</div>
       <div class="random-song-tags" id="randomSongTags"></div>
       <div class="random-song-buttons">
-        <button class="random-song-btn-next" id="randomSongBtnNext">🎲 再一首</button>
-        <button class="random-song-btn-close" id="randomSongBtnClose">關閉</button>
+        <button class="random-song-btn-next" id="randomSongBtnNext" type="button">🎲 再一首</button>
+        <button class="random-song-btn-close" id="randomSongBtnClose" type="button">關閉</button>
       </div>
     </div>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
