@@ -11,10 +11,8 @@ import { RandomPickDialog } from "@/components/radio/RandomPickDialog";
 import { catalogQueryOptions } from "@/lib/catalog.functions";
 import {
   LABEL_KINDS,
-  UNCATEGORIZED,
   buildArtistOptions,
   countByCategory,
-  countUnlabeled,
   filterSongs,
   labelFilter,
   labelsOfKind,
@@ -97,8 +95,7 @@ function Home() {
   };
 
   const labelsOf = (song: Song) => songLabels(song, categories);
-  const filterName = (v: CategoryFilter) =>
-    v === null ? null : v === UNCATEGORIZED ? "未標記" : (categoryName.get(v) ?? null);
+  const filterName = (v: CategoryFilter) => (v === null ? null : (categoryName.get(v) ?? null));
   const activeParts = [
     ...language.map(filterName),
     ...genre.map(filterName),
@@ -109,16 +106,12 @@ function Home() {
 
   const groups = LABEL_KINDS.map(({ kind, title }) => {
     const list = labelsOfKind(categories, kind);
-    const unlabeled = countUnlabeled(songs, list.map((c) => c.id));
     return {
       kind,
       title,
       chips: [
         { value: null as CategoryFilter, label: "全部", count: songs.length },
         ...list.map((c) => ({ value: c.id as CategoryFilter, label: c.name, count: counts.get(c.id) ?? 0 })),
-        ...(unlabeled > 0 && unlabeled < songs.length
-          ? [{ value: UNCATEGORIZED as CategoryFilter, label: "未標記", count: unlabeled }]
-          : []),
       ],
     };
   });
