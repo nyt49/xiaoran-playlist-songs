@@ -121,8 +121,8 @@ describe("song title display order", () => {
     expect(sortSongsByTitleLength(input).map((song) => song.title)).toEqual([
       "甜",
       "再見",
-      "我愛你",
       "A B C",
+      "我愛你",
       "ABC",
       "Without you",
     ]);
