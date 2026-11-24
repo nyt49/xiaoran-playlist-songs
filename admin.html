@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fbf5f1">
+<title>小橪的歌單管理後台 🍒</title>
+<style>
+:root{--bg:#fbf6f2;--paper:#fffdfb;--ink:#49383b;--muted:#927d80;--pink:#ca7c87;--pale:#f8e5e6;--line:#f0dfe0;--red:#b94f5d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0%,#f9e8e7,transparent 28rem),var(--bg);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:var(--ink)}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(980px,calc(100% - 28px));margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;color:var(--muted);font-size:13px}.brand{font:italic 21px Georgia,serif;color:var(--ink)}a{color:#ad6975;text-decoration:none}
+h1{font:600 clamp(28px,5vw,42px) "Noto Serif TC",serif;margin:24px 0 5px}.sub{color:var(--muted);font-size:13px;margin:0 0 22px}
+.box{background:#ffffffc9;border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 10px 30px #70484e0a}.box h2{font:600 18px "Noto Serif TC",serif;margin:0 0 15px}.label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+input[type=text],input[type=password],input[type=search]{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:white;color:var(--ink);outline:none}input:focus{border-color:#d99aa2;box-shadow:0 0 0 3px #d9828d18}
+.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.btn{border:0;border-radius:30px;background:var(--pink);color:white;padding:10px 17px;font-size:13px}.btn.secondary{background:var(--pale);color:#985964}.btn.danger{background:#f8e5e6;color:var(--red)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.status{font-size:12px;color:var(--muted);margin-top:10px;min-height:18px}.status.ok{color:#4f8a69}.status.err{color:var(--red)}
+.hidden{display:none!important}.hint{font-size:12px;line-height:1.7;color:var(--muted)}.hint a{text-decoration:underline}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.song-list{display:grid;gap:9px;margin-top:14px}.item{border:1px solid var(--line);border-radius:14px;background:white;padding:12px 14px;display:flex;gap:12px;align-items:center}.item-main{flex:1;min-width:0}.item-title{font-weight:650;font-size:14px;overflow-wrap:anywhere}.item-artist{font-size:12px;color:var(--muted);margin-top:3px}.item-tags{font-size:11px;color:#a66d76;margin-top:5px}.actions{display:flex;gap:6px}.actions button{border:0;border-radius:20px;padding:7px 10px;font-size:11px;background:#f9eeee;color:#985964}.actions button:last-child{background:#fff0ef;color:var(--red)}
+.check-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0}.check-group{border:1px solid var(--line);background:white;border-radius:13px;padding:12px}.check-group strong{font-size:12px;color:var(--muted);display:block;margin-bottom:8px}.check{display:inline-flex;align-items:center;gap:5px;font-size:12px;margin:4px 8px 4px 0}.check input{accent-color:var(--pink)}
+@media(max-width:620px){.row{flex-direction:column;align-items:stretch}.check-groups{grid-template-columns:1fr}.item{align-items:flex-start}.actions{flex-direction:column}}
+</style>
+</head>
+<body><div class="wrap">
+<header><div class="brand">🍒 RAN's Radio · 管理後台</div><a href="./">← 回歌單網站</a></header>
+<h1>歌單管理</h1><p class="sub">在這裡新增、修改或刪除歌曲，儲存後就會同步到公開歌單。</p>
+<section class="box" id="loginBox">
+<h2>管理員登入</h2>
+<label class="label" for="token">GitHub Personal Access Token</label>
+<input id="token" type="password" autocomplete="off" placeholder="貼上 GitHub Token（不會寫入網站）">
+<p class="hint">Token 只暫存在目前瀏覽器分頁的工作階段中，不會公開到網站。請使用僅限此 Repository 的 Fine-grained token，並開啟 <b>Contents: Read and write</b> 權限。<br><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">前往 GitHub 建立 Token ↗</a></p>
+<button class="btn" id="loginBtn">登入並載入歌單</button><div class="status" id="loginStatus"></div>
+</section>
+<main id="app" class="hidden">
+<section class="box">
+<div class="toolbar"><h2 id="formTitle">新增歌曲</h2><button class="btn secondary" id="newBtn">＋ 新增歌曲</button></div>
+<form id="songForm">
+<label class="label" for="songTitle">歌名</label><input id="songTitle" type="text" required maxlength="120" placeholder="輸入歌曲名稱">
+<label class="label" for="songArtist">歌手</label><input id="songArtist" type="text" required maxlength="120" placeholder="輸入歌手名稱">
+<div class="label">歌曲分類（可複選）</div><div class="check-groups" id="categoryChecks"></div>
+<div class="row"><button class="btn" type="submit" id="formSave">加入歌曲</button><button class="btn secondary" type="button" id="cancelEdit">取消</button></div>
+<div class="status" id="formStatus"></div>
+</form>
+</section>
+<section class="box">
+<div class="toolbar"><h2>目前歌單 <span id="songCount"></span></h2><div class="row" style="max-width:410px"><input type="search" id="filter" placeholder="搜尋歌名或歌手"><button class="btn" id="saveBtn" disabled>儲存並同步</button></div></div>
+<div class="status" id="saveStatus">尚未修改</div>
+<div class="song-list" id="songList"></div>
+</section>
+<section class="box"><div class="toolbar"><div><b style="font-size:13px">已連線至 GitHub</b><div class="hint">儲存會直接更新 main 分支的歌單資料。</div></div><button class="btn secondary" id="reloadBtn">重新讀取</button><button class="btn danger" id="logoutBtn">登出</button></div></section>
+</main>
+</div>
+<script>
+const OWNER="nyt49",REPO="xiaoran-playlist-songs",BRANCH="main",PATH="lovable-app/public/catalog.json";
+const API="https://api.github.com/repos/"+OWNER+"/"+REPO;
+const $=id=>document.getElementById(id);
+let token="",catalog=null,fileSha="",editingId=null,dirty=false;
+function setStatus(id,msg,type=""){const el=$(id);el.textContent=msg;el.className="status "+type;}
+function headers(){return {"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"X-GitHub-Api-Version":"2022-11-28"};}
+function decodeContent(base64){const bytes=Uint8Array.from(atob(base64.replace(/\s/g,"")),c=>c.charCodeAt(0));return new TextDecoder().decode(bytes);}
+function encodeContent(text){const bytes=new TextEncoder().encode(text);let binary="";bytes.forEach(b=>binary+=String.fromCharCode(b));return btoa(binary);}
+async function githubRequest(url,options={}){const r=await fetch(url,{...options,headers:{...headers(),...(options.headers||{})}});if(!r.ok){let msg="GitHub 回應 "+r.status;try{const body=await r.json();msg=body.message||msg;}catch{}throw new Error(msg);}return r.json();}
+async function loadCatalog(){const data=await githubRequest(API+"/contents/"+PATH+"?ref="+BRANCH);catalog=JSON.parse(decodeContent(data.content));fileSha=data.sha;dirty=false;render();setStatus("saveStatus","歌單已載入，尚未修改。","ok");}
+async function login(){token=$("token").value.trim();if(!token){setStatus("loginStatus","請先貼上 GitHub Token。","err");return;}$("loginBtn").disabled=true;setStatus("loginStatus","正在連線 GitHub…");try{await loadCatalog();sessionStorage.setItem("ranRadioGithubToken",token);$("loginBox").classList.add("hidden");$("app").classList.remove("hidden");}catch(e){token="";setStatus("loginStatus","登入失敗："+e.message+"。請確認 Token 的 Repository access 與 Contents 權限。","err");}finally{$("loginBtn").disabled=false;}}
+function markDirty(msg="有尚未儲存的修改。"){dirty=true;$("saveBtn").disabled=false;setStatus("saveStatus",msg);}
+function renderChecks(selected=[]){const root=$("categoryChecks");root.innerHTML="";for(const kind of ["language","genre"]){const group=document.createElement("div");group.className="check-group";const title=document.createElement("strong");title.textContent=kind==="language"?"語言":"類型";group.append(title);catalog.categories.filter(c=>c.kind===kind).sort((a,b)=>a.sort_order-b.sort_order).forEach(c=>{const label=document.createElement("label");label.className="check";const cb=document.createElement("input");cb.type="checkbox";cb.value=c.id;cb.checked=selected.includes(c.id);label.append(cb,document.createTextNode(c.name));group.append(label);});root.append(group);}}
+function selectedTags(){return [...$("categoryChecks").querySelectorAll('input[type="checkbox"]:checked')].map(el=>el.value);}
+function clearForm(){editingId=null;$("songForm").reset();renderChecks([]);$("formTitle").textContent="新增歌曲";$("formSave").textContent="加入歌曲";$("cancelEdit").classList.add("hidden");setStatus("formStatus","");}
+function startEdit(song){editingId=song.id;$("songTitle").value=song.title;$("songArtist").value=song.artist;renderChecks(song.tag_ids||[]);$("formTitle").textContent="修改歌曲";$("formSave").textContent="更新歌曲";$("cancelEdit").classList.remove("hidden");setStatus("formStatus","正在編輯："+song.title);}
+function renderList(){const root=$("songList");root.innerHTML="";const q=$("filter").value.trim().toLowerCase();const list=[...catalog.songs].sort((a,b)=>a.sort_order-b.sort_order).filter(s=>!q||(s.title+" "+s.artist).toLowerCase().includes(q));$("songCount").textContent="（"+catalog.songs.length+" 首）";if(!list.length){root.textContent="找不到符合的歌曲。";return;}list.forEach(s=>{const item=document.createElement("div");item.className="item";const main=document.createElement("div");main.className="item-main";const title=document.createElement("div");title.className="item-title";title.textContent=s.title;const artist=document.createElement("div");artist.className="item-artist";artist.textContent=s.artist;const tags=document.createElement("div");tags.className="item-tags";tags.textContent=(s.tag_ids||[]).map(id=>catalog.categories.find(c=>c.id===id)?.name).filter(Boolean).join(" · ");main.append(title,artist,tags);const actions=document.createElement("div");actions.className="actions";const edit=document.createElement("button");edit.textContent="編輯";edit.onclick=()=>startEdit(s);const del=document.createElement("button");del.textContent="刪除";del.onclick=()=>{if(!confirm("確定刪除「"+s.title+"」嗎？"))return;catalog.songs=catalog.songs.filter(x=>x.id!==s.id);if(editingId===s.id)clearForm();renderList();markDirty("已刪除「"+s.title+"」，記得按儲存並同步。");};actions.append(edit,del);item.append(main,actions);root.append(item);});}
+function render(){renderChecks([]);renderList();}
+$("loginBtn").onclick=login;
+$("songForm").onsubmit=e=>{e.preventDefault();const title=$("songTitle").value.trim(),artist=$("songArtist").value.trim();if(!title||!artist)return;const tags=selectedTags();if(editingId){const s=catalog.songs.find(x=>x.id===editingId);if(s){s.title=title;s.artist=artist;s.tag_ids=tags;}setStatus("formStatus","歌曲已修改，按右側儲存同步。","ok");}else{catalog.songs.push({id:crypto.randomUUID(),title,artist,tag_ids:tags,sort_order:Math.max(0,...catalog.songs.map(s=>Number(s.sort_order)||0))+1});setStatus("formStatus","歌曲已加入清單，按右側儲存同步。","ok");}clearForm();renderList();markDirty();};
+$("newBtn").onclick=clearForm;$("cancelEdit").onclick=clearForm;$("filter").oninput=renderList;
+$("reloadBtn").onclick=async()=>{if(dirty&&!confirm("目前有尚未儲存的修改，重新讀取會放棄這些修改。確定嗎？"))return;try{setStatus("saveStatus","正在重新讀取…");await loadCatalog();}catch(e){setStatus("saveStatus","讀取失敗："+e.message,"err");}};
+$("saveBtn").onclick=async()=>{if(!dirty)return;$("saveBtn").disabled=true;setStatus("saveStatus","正在儲存到 GitHub…");try{const body={message:"Update song catalog from RAN Radio Admin",content:encodeContent(JSON.stringify(catalog,null,2)+"\n"),sha:fileSha,branch:BRANCH};const result=await githubRequest(API+"/contents/"+PATH,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});fileSha=result.content.sha;dirty=false;setStatus("saveStatus","已同步成功！公開歌單重新整理後就會更新 🍒","ok");}catch(e){$("saveBtn").disabled=false;setStatus("saveStatus","同步失敗："+e.message+"。請先重新讀取確認是否已更新。","err");}};
+$("logoutBtn").onclick=()=>{sessionStorage.removeItem("ranRadioGithubToken");token="";catalog=null;$("app").classList.add("hidden");$("loginBox").classList.remove("hidden");$("token").value="";setStatus("loginStatus","已登出。");};
+const saved=sessionStorage.getItem("ranRadioGithubToken");if(saved){$("token").value=saved;login();}
+</script>
+</body></html>
