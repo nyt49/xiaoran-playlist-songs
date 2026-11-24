@@ -245,7 +245,7 @@ function Home() {
               <Mic2 className="h-3.5 w-3.5" aria-hidden="true" /> 歌手
             </p>
             <div
-              role="radiogroup"
+              role="group"
               aria-label="依歌手篩選"
               className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0"
             >
