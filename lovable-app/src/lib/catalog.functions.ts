@@ -934,7 +934,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(async (): Pr
   // so edits saved from the admin are reflected on the public songbook without a rebuild.
   try {
     const response = await fetch(
-      `https://raw.githubusercontent.com/nyt49/xiaoran-playlist-songs/preview-browser-fix/lovable-app/public/catalog.json?v=${Date.now()}`,
+      `https://raw.githubusercontent.com/nyt49/xiaoran-playlist-songs/main/lovable-app/public/catalog.json?v=${Date.now()}`,
       { cache: "no-store" },
     );
     if (response.ok) return (await response.json()) as Catalog;
