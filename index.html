@@ -1,111 +1,18 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fbf5f1">
-<title>RAN's Little Radio 🍒 小橪的私房歌單</title>
-<meta name="description" content="把喜歡的歌，收藏成日常。小橪的私房歌單。">
-<style>
-:root{--bg:#fbf6f2;--paper:#fffdfb;--ink:#49383b;--muted:#927d80;--pink:#d9828d;--pink2:#f8e5e6;--line:#f0dfe0;--shadow:0 12px 32px rgba(112,72,78,.08);--cream:#f7eddf}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0%,#f9e8e7 0,transparent 28rem),var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif}
-button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1050px,calc(100% - 34px));margin:auto}
-header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;color:var(--muted);font-size:13px}.brand{display:flex;gap:9px;align-items:center;font-family:Georgia,serif;font-size:20px;font-style:italic;color:var(--ink)}.brand b{font-family:system-ui;font-style:normal;font-size:24px}
-.live{border:1px solid var(--line);background:#fff9f7;border-radius:40px;padding:7px 12px;color:#b46d78;letter-spacing:.12em;font-size:10px}
-.hero{text-align:center;padding:46px 12px 40px}.eyebrow{font-size:11px;letter-spacing:.24em;color:var(--muted)}h1{font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(38px,7vw,68px);line-height:1.08;margin:14px 0 10px;font-weight:600;letter-spacing:-.04em}h1 em{color:var(--pink);font-weight:500}.subtitle{color:var(--muted);font-family:"Noto Serif TC",serif;font-size:16px}.hero-action{margin-top:23px;border:0;border-radius:40px;padding:13px 24px;background:#ca7c87;color:white;box-shadow:0 8px 18px #ca7c8733}.hero-action:hover{filter:brightness(1.04);transform:translateY(-1px)}.total{font-size:12px;color:var(--muted);margin-top:11px}
-.panel{background:#ffffffb8;border:1px solid var(--line);border-radius:23px;padding:18px 20px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
-.search{position:relative}.search input{width:100%;border:1px solid var(--line);background:#fffdfb;border-radius:40px;padding:14px 18px;outline:none;color:var(--ink)}.search input:focus{border-color:#d99aa2;box-shadow:0 0 0 3px #d9828d18}
-.filters{display:grid;gap:18px;margin-top:20px}.group-title{font-size:11px;color:var(--muted);letter-spacing:.15em;margin-bottom:9px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#fffdfb;color:#7e696d;border-radius:30px;padding:7px 12px;font-size:12px;transition:.15s}.chip small{opacity:.7;margin-left:4px}.chip.active{background:var(--pink2);border-color:#e4b8bc;color:#9d5964}.chip:hover{border-color:#d99aa2}
-.results-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:25px 2px 13px}.results-head h2{font-family:"Noto Serif TC",serif;font-size:18px;margin:0}.count{font-size:12px;color:var(--muted)}.clear{background:none;border:0;color:#b36d78;text-decoration:underline;margin-left:7px;font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.song{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px 16px;min-width:0;box-shadow:0 5px 17px #81565a0b}.song-top{display:flex;align-items:flex-start;gap:8px}.song-title{font-weight:650;font-size:15px;line-height:1.5;flex:1;overflow-wrap:anywhere}.copy{border:0;background:#f9eeee;border-radius:9px;padding:5px 8px;color:#ad7480;font-size:12px}.artist{color:var(--muted);font-size:12px;margin-top:3px}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.tag{background:#f8eeeb;color:#a36c73;border-radius:7px;padding:3px 7px;font-size:10px}.empty{text-align:center;padding:50px 12px;color:var(--muted);background:#fffdfb;border:1px dashed #e8cdd0;border-radius:18px}
-footer{margin:45px auto 0;border-top:1px solid var(--line);padding:20px 0 28px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:11px}footer a{color:#b36d78;text-decoration:none}
-.dialog{position:fixed;inset:0;background:#40313788;display:none;align-items:center;justify-content:center;padding:20px;z-index:5}.dialog.show{display:flex}.dialog-card{background:#fffdfb;border-radius:22px;padding:25px;width:min(360px,100%);text-align:center;box-shadow:var(--shadow)}.dialog-card h3{font-family:"Noto Serif TC",serif;font-size:21px;margin:0 0 7px}.dialog-card p{color:var(--muted);font-size:13px}.dialog-card button{border:0;border-radius:30px;padding:10px 18px;background:var(--pink2);color:#985964;margin:6px}
-.notice{text-align:center;color:var(--muted);font-size:11px;padding:10px}
-@media(max-width:620px){.wrap{width:min(100% - 24px,1050px)}.hero{padding:34px 5px 30px}.panel{padding:14px;border-radius:18px}.grid{grid-template-columns:1fr}.chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px}.chip{white-space:nowrap}.results-head{margin-top:20px}footer{align-items:flex-start;flex-direction:column}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="refresh" content="0;url=https://ran-cherry-songbook-preview.vercel.app/" />
+  <meta name="robots" content="noindex" />
+  <title>RAN's Little Radio 🍒</title>
+  <link rel="canonical" href="https://ran-cherry-songbook-preview.vercel.app/" />
+  <script>
+    window.location.replace("https://ran-cherry-songbook-preview.vercel.app/");
+  </script>
 </head>
 <body>
-<div class="wrap">
-<header><div class="brand"><b>🍒</b> RAN's Radio</div><div class="live">● ON AIR</div></header>
-<section class="hero">
-<div class="eyebrow">FM 0520 · 小橪的私房頻道</div>
-<h1>RAN's Little <em>Radio</em></h1>
-<div class="subtitle">把喜歡的歌，收藏成日常 🍒</div>
-<button class="hero-action" id="randomBtn">✧ 隨機點一首</button>
-<div class="total" id="total">歌單載入中…</div>
-</section>
-<section class="panel">
-<div class="search"><input id="search" type="search" placeholder="搜尋歌名或歌手…" autocomplete="off"></div>
-<div class="filters" id="filters"></div>
-</section>
-<div class="results-head"><h2 id="heading">全部收藏</h2><div class="count" id="count"></div></div>
-<section class="grid" id="songs"></section>
-<div class="notice" id="notice" aria-live="polite"></div>
-<footer><span>🍒 RAN's Little Radio · 只收藏，不播放</span><a href="./admin.html">管理員入口 ↗</a></footer>
-</div>
-<div class="dialog" id="dialog"><div class="dialog-card"><h3 id="randomTitle">今天聽這首</h3><p id="randomArtist"></p><div id="randomTags" class="tags" style="justify-content:center;margin:14px 0"></div><button id="nextRandom">再抽一首</button><button id="closeRandom">收下這首</button></div></div>
-<script>
-const CATALOG_URL="https://raw.githubusercontent.com/nyt49/xiaoran-playlist-songs/main/lovable-app/public/catalog.json";
-let catalog={songs:[],categories:[]},query="",selected={language:new Set(),genre:new Set()},artist=null,showAllArtists=false;
-const $=id=>document.getElementById(id);
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function getCategory(id){return catalog.categories.find(c=>c.id===id);}
-function songTags(song){return (song.tag_ids||[]).map(getCategory).filter(Boolean);}
-function artists(){const map=new Map();catalog.songs.forEach(s=>map.set(s.artist,(map.get(s.artist)||0)+1));return [...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"zh-Hant"));}
-function filtered(){return catalog.songs.filter(s=>{
- const tags=songTags(s);
- const langOk=!selected.language.size||tags.some(t=>t.kind==="language"&&selected.language.has(t.id));
- const genreOk=!selected.genre.size||tags.some(t=>t.kind==="genre"&&selected.genre.has(t.id));
- const q=query.trim().toLowerCase(),searchOk=!q||s.title.toLowerCase().includes(q)||s.artist.toLowerCase().includes(q);
- return langOk&&genreOk&&searchOk&&(!artist||s.artist===artist);
-}).sort((a,b)=>a.title.length-b.title.length||a.sort_order-b.sort_order);}
-function chip(label,count,active,fn){const b=document.createElement("button");b.className="chip"+(active?" active":"");b.innerHTML=esc(label)+" <small>"+count+"</small>";b.onclick=fn;return b;}
-function renderFilters(){
- const root=$("filters");root.innerHTML="";
- for(const kind of ["language","genre"]){
-  const cats=catalog.categories.filter(c=>c.kind===kind).sort((a,b)=>a.sort_order-b.sort_order);
-  const box=document.createElement("div"),title=document.createElement("div"),chips=document.createElement("div");
-  title.className="group-title";title.textContent=kind==="language"?"語言":"類型";chips.className="chips";
-  const set=selected[kind];
-  chips.append(chip("全部",catalog.songs.length,set.size===0,()=>{set.clear();render();}));
-  cats.forEach(c=>{const n=catalog.songs.filter(s=>songTags(s).some(t=>t.id===c.id)).length;chips.append(chip(c.name,n,set.has(c.id),()=>{set.has(c.id)?set.delete(c.id):set.add(c.id);render();}));});
-  box.append(title,chips);root.append(box);
- }
- const box=document.createElement("div"),title=document.createElement("div"),chips=document.createElement("div");
- title.className="group-title";title.textContent="歌手";chips.className="chips";
- const all=artists(),shown=showAllArtists?all:all.slice(0,14);
- chips.append(chip("所有歌手",all.length,artist===null,()=>{artist=null;render();}));
- shown.forEach(([name,n])=>chips.append(chip(name,n,artist===name,()=>{artist=artist===name?null:name;render();})));
- if(all.length>14)chips.append(chip(showAllArtists?"收合":"更多歌手 +"+(all.length-14),"",false,()=>{showAllArtists=!showAllArtists;render();}));
- box.append(title,chips);root.append(box);
-}
-function renderSongs(){
- const list=filtered(),root=$("songs");root.innerHTML="";
- $("count").textContent=query||artist||selected.language.size||selected.genre.size?"找到 "+list.length+" / "+catalog.songs.length+" 首":"共 "+list.length+" 首歌";
- $("heading").textContent=artist||"全部收藏";
- if(!list.length){root.className="";root.innerHTML='<div class="empty" style="grid-column:1/-1">沒有找到符合的歌，換個關鍵字試試吧 🍒</div>';return;}
- root.className="grid";
- list.forEach(s=>{
-  const card=document.createElement("article");card.className="song";
-  const top=document.createElement("div");top.className="song-top";
-  const name=document.createElement("div");name.className="song-title";name.textContent=s.title;
-  const copy=document.createElement("button");copy.className="copy";copy.textContent="複製";copy.onclick=async()=>{try{await navigator.clipboard.writeText(s.title);copy.textContent="已複製";setTimeout(()=>copy.textContent="複製",1000);}catch{copy.textContent="請手動複製";}};
-  top.append(name,copy);
-  const artistEl=document.createElement("div");artistEl.className="artist";artistEl.textContent=s.artist;
-  const tags=document.createElement("div");tags.className="tags";songTags(s).forEach(t=>{const span=document.createElement("span");span.className="tag";span.textContent=t.name;tags.append(span);});
-  card.append(top,artistEl,tags);root.append(card);
- });
-}
-function render(){renderFilters();renderSongs();$("total").textContent="從全部 "+catalog.songs.length+" 首收藏中，為你抽一首";}
-async function load(){
- try{const response=await fetch(CATALOG_URL+"?v="+Date.now(),{cache:"no-store"});if(!response.ok)throw new Error("讀取歌單失敗");
- catalog=await response.json();if(!Array.isArray(catalog.songs)||!Array.isArray(catalog.categories))throw new Error("歌單格式不正確");render();}
- catch(e){$("total").textContent="歌單暫時收不到訊號";$("songs").innerHTML='<div class="empty" style="grid-column:1/-1">歌單載入失敗，請重新整理再試一次。<br>'+esc(e.message)+'</div>';}
-}
-$("search").addEventListener("input",e=>{query=e.target.value;renderSongs();});
-$("randomBtn").onclick=()=>pickRandom();$("nextRandom").onclick=()=>pickRandom();$("closeRandom").onclick=()=>$("dialog").classList.remove("show");
-$("dialog").onclick=e=>{if(e.target===$("dialog"))$("dialog").classList.remove("show");};
-function pickRandom(){if(!catalog.songs.length)return;const s=catalog.songs[Math.floor(Math.random()*catalog.songs.length)];$("randomTitle").textContent=s.title;$("randomArtist").textContent=s.artist;$("randomTags").innerHTML=songTags(s).map(t=>'<span class="tag">'+esc(t.name)+'</span>').join("");$("dialog").classList.add("show");}
-load();
-</script>
-</body></html>
+  <p>正在前往小橪的私房歌單 🍒</p>
+  <p><a href="https://ran-cherry-songbook-preview.vercel.app/">點這裡開啟 RAN's Little Radio</a></p>
+</body>
+</html>
